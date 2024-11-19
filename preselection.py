@@ -3,8 +3,11 @@ from addons.TMVAHelper.TMVAHelper import TMVAHelperXGB
 
 # list of processes (mandatory)
 processList = {
-    'p8_ee_WW_ecm240': {'fraction': 0.1},
-    'wzp6_ee_mumuH_ecm240': {'fraction': 1},
+    'p8_ee_WW_ecm355': {'fraction': 1},
+    'wzp6_ee_nuenueH_Hbb_ecm240': {'fraction': 1},
+    'wzp6_ee_numunumuH_Hbb_ecm240': {'fraction': 1},
+    'p8_ee_ZZ_ecm240': {'fraction': 0.2},
+    'p8_ee_tt_ecm365': {'fraction': 0.2},
 }
 
 # Production tag when running over EDM4Hep centrally produced events, this points to the yaml files for getting sample statistics (mandatory)
