@@ -145,8 +145,11 @@ class RDFanalysis():
         df = df.Define("jj_m", "JetConstituentsUtils::InvariantMass(jets_p4[0], jets_p4[1])")
 
 #########################################################################################
-
-
+        df = df.Define("scoresum_B", "recojet_isB[0] + recojet_isB[1]")  
+        df = df.Filter("scoresum_B > 1.0") 
+# Select two leading jets as b-jets candidates
+        df = df.Define("bjets", "std::vector<ROOT::Math::PxPyPzEVector>{jets_p4[0], jets_p4[1]}")  
+#########################################################################################
       
         # build Higgs resonance
         df = df.Define("higgs", "ReconstructedParticle::resonanceBuilder(125)(bjets)")
@@ -157,8 +160,8 @@ class RDFanalysis():
 
         # kinematic cuts
         df = df.Filter("higgs_m > 120 && higgs_m < 130")
-        df = df.Filter("higgs_p > 20 && higgs_p < 70")
-        df = df.Filter("higgs_recoil_m < 140 && higgs_recoil_m > 120")
+        df = df.Filter("higgs_p > 10 && higgs_p < 100") 
+        df = df.Filter("higgs_recoil_m < 10") 
 
         df = df.Define("missingEnergy", "FCCAnalyses::missingEnergy(365., ReconstructedParticles)")
         df = df.Define("cosTheta_miss", "FCCAnalyses::get_cosTheta_miss(missingEnergy)")
