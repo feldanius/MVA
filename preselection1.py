@@ -1,5 +1,10 @@
+import sys
+sys.path.append("/afs/cern.ch/user/f/fdmartin/FCCanalyses1/addons")
+from TMVAHelper.TMVAHelper import TMVAHelperXGB
 
-from addons.TMVAHelper.TMVAHelper import TMVAHelperXGB
+
+#from addons.TMVAHelper.TMVAHelper import TMVAHelperXGB
+
 
 # list of processes (mandatory)
 processList = {
