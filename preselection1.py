@@ -1,6 +1,7 @@
 import sys
-sys.path.append("/afs/cern.ch/user/f/fdmartin/FCCanalyses1/addons")
-from TMVAHelper.TMVAHelper import TMVAHelperXGB
+sys.path.append("/afs/cern.ch/user/f/fdmartin/FCCanalyses1/addons/TMVAHelper/python")
+from TMVAHelper import TMVAHelperXGB
+
 
 
 #from addons.TMVAHelper.TMVAHelper import TMVAHelperXGB
