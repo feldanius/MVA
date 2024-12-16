@@ -152,13 +152,13 @@ class RDFanalysis():
         df = df.Filter("scoresum_B > 1.0") 
 # Select two leading jets as b-jets candidates
         df = df.Define("bjets_indices", "ROOT::VecOps::RVec<int>{0, 1}")  
-        df = df.Define("bjets", R"(
+        df = df.Define("bjets", R"""
             ROOT::VecOps::RVec<FCCAnalyses::ReconstructedParticle> selected_bjets;
             for (auto idx : bjets_indices) {
                 selected_bjets.push_back(jets_p4[idx]);  // Asegúrate de que jets_p4 sea del tipo esperado
             }
             return selected_bjets;
-        )");
+        """)
 
 #########################################################################################
       
