@@ -151,8 +151,14 @@ class RDFanalysis():
         df = df.Define("scoresum_B", "recojet_isB[0] + recojet_isB[1]")  
         df = df.Filter("scoresum_B > 1.0") 
 # Select two leading jets as b-jets candidates
-        df = df.Define("bjets_indices", "ROOT::VecOps::RVec<int>{0, 1}")  # Índices de los dos jets principales
-        df = df.Define("bjets", "FCCAnalyses::ReconstructedParticle::sel_indices(bjets_indices, ReconstructedParticles)") 
+        df = df.Define("bjets_indices", "ROOT::VecOps::RVec<int>{0, 1}")  
+        df = df.Define("bjets", """
+            ROOT::VecOps::RVec<ReconstructedParticle> selected_bjets;
+            for (auto idx : bjets_indices) {
+                selected_bjets.push_back(jets_p4[idx]);  // Cambia jets_p4 si usas otra colección
+            }
+            return selected_bjets;
+        """)
 #########################################################################################
       
         # build Higgs resonance
