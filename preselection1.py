@@ -1,6 +1,3 @@
-#import sys
-#sys.path.append("/afs/cern.ch/user/f/fdmartin/FCCAnalyses")
-#from TMVAHelper import TMVAHelperXGB
 
 from addons.TMVAHelper.TMVAHelper import TMVAHelperXGB
 
@@ -29,6 +26,13 @@ outputDir   = f"outputs/FCCee/higgs/mva/preselection/"
 
 # Multithreading: -1 means using all cores
 nCPUS       = -1
+
+# Batch settings
+#runBatch    = False
+#batchQueue  = "longlunch"
+#compGroup = "group_u_FCC.local_gen"
+
+doInference = False
 
 ## latest particle transformer model, trained on 9M jets in winter2023 samples
 model_name = "fccee_flavtagging_edm4hep_wc_v1"
@@ -65,12 +69,6 @@ from addons.FastJet.jetClusteringHelper import (
 jetFlavourHelper = None
 jetClusteringHelper = None
 
-# Batch settings
-#runBatch    = False
-#batchQueue  = "longlunch"
-#compGroup = "group_u_FCC.local_gen"
-
-doInference = False
 
 class RDFanalysis():
 
