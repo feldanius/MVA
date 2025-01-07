@@ -151,14 +151,36 @@ class RDFanalysis():
         df = df.Define("scoresum_B", "recojet_isB[0] + recojet_isB[1]")  
         df = df.Filter("scoresum_B > 1.0") 
 # Select two leading jets as b-jets candidates
-        df = df.Define("bjets_indices", "ROOT::VecOps::RVec<int>{0, 1}")  
-        df = df.Define("bjets", R"""
-            ROOT::VecOps::RVec<FCCAnalyses::ReconstructedParticle> selected_bjets;
-            for (auto idx : bjets_indices) {
-                selected_bjets.push_back(jets_p4[idx]);  // Asegúrate de que jets_p4 sea del tipo esperado
+        df = df.Define("bjets_indices", R"""
+        ROOT::VecOps::RVec<int> indices;
+        for (size_t i = 0; i < recojet_isB.size(); ++i) {
+            if (recojet_isB[i] > 0.5) {  // Umbral para considerar un jet como b-tagged
+                indices.push_back(i);
             }
-            return selected_bjets;
+        }
+        return indices;
         """)
+        
+        # Asegurarnos de que haya exactamente 2 b-jets
+        df = df.Filter("bjets_indices.size() == 2", "Event with exactly two b-tagged jets")
+        
+        # Seleccionar los b-jets según los índices seleccionados
+        df = df.Define("bjets", R"""
+        ROOT::VecOps::RVec<FCCAnalyses::ReconstructedParticle> selected_bjets;
+        for (auto idx : bjets_indices) {
+            selected_bjets.push_back(jets_p4[idx]);
+        }
+        return selected_bjets;
+        """)
+                
+       # df = df.Define("bjets_indices", "ROOT::VecOps::RVec<int>{0, 1}")  
+       # df = df.Define("bjets", R"""
+       #     ROOT::VecOps::RVec<FCCAnalyses::ReconstructedParticle> selected_bjets;
+       #     for (auto idx : bjets_indices) {
+       #         selected_bjets.push_back(jets_p4[idx]);  // Asegúrate de que jets_p4 sea del tipo esperado
+       #     }
+       #     return selected_bjets;
+       # """)
 
 #########################################################################################
       
