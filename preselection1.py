@@ -161,14 +161,14 @@ class RDFanalysis():
         return indices;
         """)
         
-        # Asegurarnos de que haya exactamente 2 b-jets
+        # Asegúrate de que haya exactamente 2 b-jets seleccionados
         df = df.Filter("bjets_indices.size() == 2", "Event with exactly two b-tagged jets")
         
         # Seleccionar los b-jets según los índices seleccionados
         df = df.Define("bjets", R"""
-        ROOT::VecOps::RVec<FCCAnalyses::ReconstructedParticle> selected_bjets;
+        ROOT::VecOps::RVec<ROOT::Math::PxPyPzE4D<float>> selected_bjets;
         for (auto idx : bjets_indices) {
-            selected_bjets.push_back(jets_p4[idx]);
+            selected_bjets.push_back(jets_p4[idx]);  // jets_p4 debe ser del tipo ROOT::Math::PxPyPzE4D<float>
         }
         return selected_bjets;
         """)
