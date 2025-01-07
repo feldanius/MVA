@@ -151,27 +151,7 @@ class RDFanalysis():
         df = df.Define("scoresum_B", "recojet_isB[0] + recojet_isB[1]")  
         df = df.Filter("scoresum_B > 1.0") 
 # Select two leading jets as b-jets candidates
-        df = df.Define("bjets_indices", R"""
-        ROOT::VecOps::RVec<int> indices;
-        for (size_t i = 0; i < recojet_isB.size(); ++i) {
-            if (recojet_isB[i] > 0.5) {  // Umbral para considerar un jet como b-tagged
-                indices.push_back(i);
-            }
-        }
-        return indices;
-        """)
-        
-        # Asegúrate de que haya exactamente 2 b-jets seleccionados
-        df = df.Filter("bjets_indices.size() == 2", "Event with exactly two b-tagged jets")
-        
-        # Seleccionar los b-jets según los índices seleccionados
-        df = df.Define("bjets", R"""
-        ROOT::VecOps::RVec<ROOT::Math::PxPyPzE4D<float>> selected_bjets;
-        for (auto idx : bjets_indices) {
-            selected_bjets.push_back(jets_p4[idx]);  // jets_p4 debe ser del tipo ROOT::Math::PxPyPzE4D<float>
-        }
-        return selected_bjets;
-        """)
+    
                 
        # df = df.Define("bjets_indices", "ROOT::VecOps::RVec<int>{0, 1}")  
        # df = df.Define("bjets", R"""
@@ -185,6 +165,7 @@ class RDFanalysis():
 #########################################################################################
       
         # build Higgs resonance
+        df = df.Define("bjets", "ROOT::VecOps::Take(jets_p4, {0, 1})")
         df = df.Define("higgs", "ReconstructedParticle::resonanceBuilder(125)(bjets)")
         df = df.Define("higgs_m", "ReconstructedParticle::get_mass(higgs)[0]")
         df = df.Define("higgs_p", "ReconstructedParticle::get_p(higgs)[0]")
