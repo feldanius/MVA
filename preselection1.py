@@ -174,7 +174,6 @@ class RDFanalysis():
         #df = df.Define("bjets", "ROOT::VecOps::Take(jets_p4, bjet_indices)")  #3
         df = df.Define("is_bjet", "recojet_isB > 0.5")  # Jets con alta probabilidad de ser b-jets
         df = df.Define("bjet_indices", "Nonzero(is_bjet)")  # Índices de los b-jets identificados
-// Crear los b-jets reconstruidos
         df = df.Define("bjets", "ROOT::VecOps::Map(jets_p4, [](const auto& p4) { return edm4hep::ReconstructedParticleData(p4.E(), p4.Px(), p4.Py(), p4.Pz()); })")
         df = df.Define("higgs", "ReconstructedParticle::resonanceBuilder(125)(bjets)")
         df = df.Define("higgs_m", "ReconstructedParticle::get_mass(higgs)[0]")
