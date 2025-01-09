@@ -168,7 +168,10 @@ class RDFanalysis():
         #df = df.Define("bjets", "ROOT::VecOps::Take(jets_p4, {0, 1})")
         #df = df.Define("bjets", "ROOT::VecOps::Take(jets_p4, ROOT::VecOps::Where(recojet_isB > 0.5))")
         #df = df.Define("bjets", "ROOT::VecOps::Map(jets_p4, [](const auto& lv){ return ReconstructedParticleData::FromTLorentzVector(lv); })");
-        df = df.Define("bjets", "ROOT::VecOps::Filter(jets_p4, recojet_isB > 0.5)")
+        #df = df.Define("bjets", "ROOT::VecOps::Filter(jets_p4, recojet_isB > 0.5)")
+        df = df.Define("is_bjet", "recojet_isB > 0.5")  #1
+        df = df.Define("bjet_indices", "Nonzero(is_bjet)")  #2
+        df = df.Define("bjets", "ROOT::VecOps::Take(jets_p4, bjet_indices)")  #3
         df = df.Define("higgs", "ReconstructedParticle::resonanceBuilder(125)(bjets)")
         df = df.Define("higgs_m", "ReconstructedParticle::get_mass(higgs)[0]")
         df = df.Define("higgs_p", "ReconstructedParticle::get_p(higgs)[0]")
