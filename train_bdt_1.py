@@ -31,17 +31,18 @@ print("Parse inputs")
 
 signal_files = [
     "outputs/FCCee/higgs/mva/preselection/wzp6_ee_nuenueH_Hbb_ecm240",
-    "outputs/FCCee/higgs/mva/preselection/wzp6_ee_numunumuH_Hbb_ecm240"
+    "outputs/FCCee/higgs/mva/preselection/wzp6_ee_numunumuH_Hbb_ecm240_vbf"
 ]
 
 background_files = [
     "outputs/FCCee/higgs/mva/preselection/p8_ee_ZZ_ecm240",
     "outputs/FCCee/higgs/mva/preselection/p8_ee_WW_ecm355",
-    "outputs/FCCee/higgs/mva/preselection/p8_ee_tt_ecm365"
+    "outputs/FCCee/higgs/mva/preselection/p8_ee_tt_ecm365",
+    "outputs/FCCee/higgs/mva/preselection/wzp6_ee_numunumuH_Hbb_ecm240"
 ]
 
 # configuration of signal, background, variables, files, ...
-variables = [ "higgs_p", "higgs_m", "higgs_recoil_m", "cosTheta_miss", "missingEnergy"]
+variables = [ "jj_m", "cosTheta_miss", "missingEnergy", "missing_p" ]
 weight_sf = 1e9
 sig_df = load_multiple_processes(signal_files, variables, weight_sf=weight_sf, target=1)
 bkg_df = load_multiple_processes(background_files, variables, weight_sf=weight_sf, target=0)
