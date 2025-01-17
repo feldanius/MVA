@@ -148,26 +148,20 @@ class RDFanalysis:
         df = df.Define("missing_p", "FCCAnalyses::ReconstructedParticle::get_p(missingEnergy)")
         df = df.Filter("cosTheta_miss < 0.98")
 
-        df = df.Define("missingEnergy_type", "(std::string)typeid(missingEnergy).name()")
-        print("missingEnergy_type:", df.AsNumpy(columns=["missingEnergy_type"])["missingEnergy_type"][0])
-        
-        df = df.Define("cosTheta_miss_type", "(std::string)typeid(cosTheta_miss).name()")
-        print("cosTheta_miss_type:", df.AsNumpy(columns=["cosTheta_miss_type"])["cosTheta_miss_type"][0])
-        
-        df = df.Define("missing_p_type", "(std::string)typeid(missing_p).name()")
-        print("missing_p_type:", df.AsNumpy(columns=["missing_p_type"])["missing_p_type"][0])
-        
-        df = df.Define("jj_m_type", "(std::string)typeid(jj_m).name()")
-        print("jj_m_type:", df.AsNumpy(columns=["jj_m_type"])["jj_m_type"][0])
 
-        
-        
+        df = df.Define("missingEnergy_weighted", 
+               "ROOT::VecOps::Map(missingEnergy, [event_weight](auto energy) { return energy * event_weight; })");
 
-        
-        #df = df.Define("missingEnergy_weighted", "missingEnergy * event_weight")
-        #df = df.Define("cosTheta_miss_weighted", "cosTheta_miss * event_weight")
-        #df = df.Define("missing_p_weighted", "missing_p * event_weight")
-        #df = df.Define("jj_m_weighted", "jj_m * event_weight")
+
+        df = df.Define("cosTheta_miss_weighted", 
+               "ROOT::VecOps::Map(cosTheta_miss, [event_weight](auto theta) { return theta * event_weight; })");
+
+        df = df.Define("missing_p_weighted", 
+               "ROOT::VecOps::Map(missing_p, [event_weight](auto p) { return p * event_weight; })");
+
+
+        df = df.Define("jj_m_weighted", 
+               "ROOT::VecOps::Map(jj_m, [event_weight](auto mass) { return mass * event_weight; })");
 
 
 
@@ -179,8 +173,8 @@ class RDFanalysis:
 
     # define output branches to be saved
     def output():
-        #branchList = [ "jj_m", "cosTheta_miss", "missingEnergy", "missing_p", "event_weight", "missingEnergy_weighted", "cosTheta_miss_weighted", "missing_p_weighted", "jj_m_weighted"]
-        branchList = [ "jj_m", "cosTheta_miss", "missingEnergy", "missing_p", "event_weight"]
+        branchList = [ "jj_m", "cosTheta_miss", "missingEnergy", "missing_p", "event_weight", "missingEnergy_weighted", "cosTheta_miss_weighted", "missing_p_weighted", "jj_m_weighted"]
+        #branchList = [ "jj_m", "cosTheta_miss", "missingEnergy", "missing_p", "event_weight"]
         if doInference:
             branchList.append("mva_score")
         return branchList
