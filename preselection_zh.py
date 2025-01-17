@@ -178,7 +178,8 @@ class RDFanalysis:
 
     # define output branches to be saved
     def output():
-        branchList = [ "jj_m", "cosTheta_miss", "missingEnergy", "missing_p", "event_weight", "missingEnergy_weighted", "cosTheta_miss_weighted", "missing_p_weighted", "jj_m_weighted"]
+        #branchList = [ "jj_m", "cosTheta_miss", "missingEnergy", "missing_p", "event_weight", "missingEnergy_weighted", "cosTheta_miss_weighted", "missing_p_weighted", "jj_m_weighted"]
+        branchList = [ "jj_m", "cosTheta_miss", "missingEnergy", "missing_p", "event_weight"]
         if doInference:
             branchList.append("mva_score")
         return branchList
