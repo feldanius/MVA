@@ -149,14 +149,10 @@ class RDFanalysis:
         df = df.Filter("cosTheta_miss < 0.98")
 
 
-       # Apply weights to scalar variables
+
         df = df.Define("jj_m_weighted", "jj_m * event_weight")
         df = df.Define("cosTheta_miss_weighted", "cosTheta_miss * event_weight")
-
-# Apply weights to complex structures (missingEnergy -> energy sub-branch)
-        df = df.Define("missingEnergy_weighted", "FCCAnalyses::ReconstructedParticle::apply_weight(missingEnergy, event_weight)")
-
-# Apply weights to vectors
+        df = df.Define("missingEnergy_energy_weighted", "ROOT::VecOps::Map(missingEnergy.energy, [event_weight](auto e) { return e * event_weight; })")
         df = df.Define("missing_p_weighted", "ROOT::VecOps::Map(missing_p, [event_weight](auto p) { return p * event_weight; })")
 
         if doInference:
