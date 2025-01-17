@@ -150,6 +150,7 @@ class RDFanalysis:
 
         df = df.Define("missingEnergy", "FCCAnalyses::missingEnergy(365., ReconstructedParticles)")
         df = df.Define("cosTheta_miss", "FCCAnalyses::get_cosTheta_miss(missingEnergy)")
+        df = df.Define("missing_p", "FCCAnalyses::ReconstructedParticle::get_p(missingEnergy)")
         df = df.Filter("cosTheta_miss < 0.98")
 
 
@@ -161,7 +162,7 @@ class RDFanalysis:
 
     # define output branches to be saved
     def output():
-        branchList = [ "jj_m", "cosTheta_miss", "missingEnergy"]
+        branchList = [ "jj_m", "cosTheta_miss", "missingEnergy","missing_p"]
         if doInference:
             branchList.append("mva_score")
         return branchList
