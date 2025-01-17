@@ -143,11 +143,9 @@ class RDFanalysis:
         df = jetFlavourHelper.define(df)
         df = jetFlavourHelper.inference(weaver_preproc, weaver_model, df)
 
-        df = df.Filter("event_njet >= 2")
-       
+        df = df.Filter("event_njet >= 2")    
         df = df.Define("jets_p4", "JetConstituentsUtils::compute_tlv_jets({})".format(jetClusteringHelper.jets))
         df = df.Define("jj_m", "JetConstituentsUtils::InvariantMass(jets_p4[0], jets_p4[1])")
-
         df = df.Define("missingEnergy", "FCCAnalyses::missingEnergy(365., ReconstructedParticles)")
         df = df.Define("cosTheta_miss", "FCCAnalyses::get_cosTheta_miss(missingEnergy)")
         df = df.Define("missing_p", "FCCAnalyses::ReconstructedParticle::get_p(missingEnergy)")
