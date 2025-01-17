@@ -149,21 +149,15 @@ class RDFanalysis:
         df = df.Filter("cosTheta_miss < 0.98")
 
 
-        df = df.Define("missingEnergy_weighted", 
-               "ROOT::VecOps::Map(missingEnergy, [event_weight](auto energy) { return energy * event_weight; })");
+       # Apply weights to scalar variables
+        df = df.Define("jj_m_weighted", "jj_m * event_weight")
+        df = df.Define("cosTheta_miss_weighted", "cosTheta_miss * event_weight")
 
+# Apply weights to complex structures (missingEnergy -> energy sub-branch)
+        df = df.Define("missingEnergy_weighted", "FCCAnalyses::ReconstructedParticle::apply_weight(missingEnergy, event_weight)")
 
-        df = df.Define("cosTheta_miss_weighted", 
-               "ROOT::VecOps::Map(cosTheta_miss, [event_weight](auto theta) { return theta * event_weight; })");
-
-        df = df.Define("missing_p_weighted", 
-               "ROOT::VecOps::Map(missing_p, [event_weight](auto p) { return p * event_weight; })");
-
-
-        df = df.Define("jj_m_weighted", 
-               "ROOT::VecOps::Map(jj_m, [event_weight](auto mass) { return mass * event_weight; })");
-
-
+# Apply weights to vectors
+        df = df.Define("missing_p_weighted", "ROOT::VecOps::Map(missing_p, [event_weight](auto p) { return p * event_weight; })")
 
         if doInference:
             tmva_helper = TMVAHelperXGB("outputs/FCCee/higgs/mva/bdt_model_example.root", "bdt_model") # read the XGBoost training
