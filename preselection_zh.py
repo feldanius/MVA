@@ -152,7 +152,7 @@ class RDFanalysis:
 
         df = df.Define("jj_m_weighted", "jj_m * event_weight")
         df = df.Define("cosTheta_miss_weighted", "cosTheta_miss * event_weight")
-        df = df.Define("missingEnergy_energy_weighted", "ROOT::VecOps::Map(missingEnergy.energy, [event_weight](auto e) { return e * event_weight; })")
+        #df = df.Define("missingEnergy_energy_weighted", "ROOT::VecOps::Map(missingEnergy.energy, [event_weight](auto e) { return e * event_weight; })")
         df = df.Define("missing_p_weighted", "ROOT::VecOps::Map(missing_p, [event_weight](auto p) { return p * event_weight; })")
 
         if doInference:
@@ -163,7 +163,7 @@ class RDFanalysis:
 
     # define output branches to be saved
     def output():
-        branchList = [ "jj_m", "cosTheta_miss", "missingEnergy", "missing_p", "event_weight", "missingEnergy_weighted", "cosTheta_miss_weighted", "missing_p_weighted", "jj_m_weighted"]
+        branchList = [ "jj_m", "cosTheta_miss", "missingEnergy", "missing_p", "event_weight", "cosTheta_miss_weighted", "missing_p_weighted", "jj_m_weighted"]
         #branchList = [ "jj_m", "cosTheta_miss", "missingEnergy", "missing_p", "event_weight"]
         if doInference:
             branchList.append("mva_score")
