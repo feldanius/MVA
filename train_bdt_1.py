@@ -1,4 +1,3 @@
-
 import uproot
 import pandas as pd
 import xgboost as xgb
@@ -26,7 +25,21 @@ def load_process(fIn, variables, target=0, weight_sf=1.):
     return df
 
 
+# Define the new function to load multiple processes
+def load_multiple_processes(files, variables, weight_sf=1., target=0):
+    # Initialize an empty list for the dataframes
+    df_list = []
+    
+    # Iterate over all files in 'files'
+    for fIn in files:
+        df = load_process(fIn, variables, target=target, weight_sf=weight_sf)  # Use the function you defined
+        df_list.append(df)  # Add each dataframe to the list
+    
+    # Concatenate all dataframes in the list into a single dataframe
+    return pd.concat(df_list, ignore_index=True)
 
+
+# Continue with the rest of the code
 print("Parse inputs")
 
 signal_files = [
@@ -47,11 +60,6 @@ weight_sf = 1e9
 sig_df = load_multiple_processes(signal_files, variables, weight_sf=weight_sf, target=1)
 bkg_df = load_multiple_processes(background_files, variables, weight_sf=weight_sf, target=0)
 
-
-
-
-
-
 # Concatenate the dataframes into a single dataframe
 data = pd.concat([sig_df, bkg_df], ignore_index=True)
 
@@ -60,7 +68,6 @@ data = pd.concat([sig_df, bkg_df], ignore_index=True)
 train_data, test_data, train_labels, test_labels, train_weights, test_weights  = train_test_split(
     data[variables], data['target'], data['weight'], test_size=0.2, random_state=42
 )
-
 
 
 # conversion to numpy needed to have default feature_names (fN), needed for conversion to TMVA
