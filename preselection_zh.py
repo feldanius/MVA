@@ -148,17 +148,18 @@ class RDFanalysis:
         df = df.Define("missing_p", "FCCAnalyses::ReconstructedParticle::get_p(missingEnergy)")
         df = df.Filter("cosTheta_miss < 0.98")
 
-        df = df.Define("missingEnergy_type", "typeid(missingEnergy).name()")
+        df = df.Define("missingEnergy_type", "(std::string)typeid(missingEnergy).name()")
         print("missingEnergy_type:", df.AsNumpy(columns=["missingEnergy_type"])["missingEnergy_type"][0])
         
-        df = df.Define("cosTheta_miss_type", "typeid(cosTheta_miss).name()")
+        df = df.Define("cosTheta_miss_type", "(std::string)typeid(cosTheta_miss).name()")
         print("cosTheta_miss_type:", df.AsNumpy(columns=["cosTheta_miss_type"])["cosTheta_miss_type"][0])
         
-        df = df.Define("missing_p_type", "typeid(missing_p).name()")
+        df = df.Define("missing_p_type", "(std::string)typeid(missing_p).name()")
         print("missing_p_type:", df.AsNumpy(columns=["missing_p_type"])["missing_p_type"][0])
         
-        df = df.Define("jj_m_type", "typeid(jj_m).name()")
+        df = df.Define("jj_m_type", "(std::string)typeid(jj_m).name()")
         print("jj_m_type:", df.AsNumpy(columns=["jj_m_type"])["jj_m_type"][0])
+
         
         
 
