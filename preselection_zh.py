@@ -148,10 +148,23 @@ class RDFanalysis:
         df = df.Define("missing_p", "FCCAnalyses::ReconstructedParticle::get_p(missingEnergy)")
         df = df.Filter("cosTheta_miss < 0.98")
 
-        df = df.Define("missingEnergy_weighted", "missingEnergy * event_weight")
-        df = df.Define("cosTheta_miss_weighted", "cosTheta_miss * event_weight")
-        df = df.Define("missing_p_weighted", "missing_p * event_weight")
-        df = df.Define("jj_m_weighted", "jj_m * event_weight")
+        df = df.Define("missingEnergy_type", "typeid(missingEnergy).name()")
+        df.Display().Print()
+
+        df = df.Define("cosTheta_miss_type", "typeid(cosTheta_miss).name()")
+        df.Display().Print()
+
+        df = df.Define("missing_p_type", "typeid(missing_p).name()")
+        df.Display().Print()
+
+        df = df.Define("jj_m_type", "typeid(jj_m).name()")
+        df.Display().Print()
+
+        
+        #df = df.Define("missingEnergy_weighted", "missingEnergy * event_weight")
+        #df = df.Define("cosTheta_miss_weighted", "cosTheta_miss * event_weight")
+        #df = df.Define("missing_p_weighted", "missing_p * event_weight")
+        #df = df.Define("jj_m_weighted", "jj_m * event_weight")
 
 
 
