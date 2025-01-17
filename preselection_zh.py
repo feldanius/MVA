@@ -142,13 +142,17 @@ class RDFanalysis:
         df = df.Filter("event_njet >= 2")
        
         df = df.Define("jets_p4", "JetConstituentsUtils::compute_tlv_jets({})".format(jetClusteringHelper.jets))
-        df = df.Define("jj_m", "JetConstituentsUtils::InvariantMass(jets_p4[0], jets_p4[1]) * event_weight")
-        df = df.Define("missingEnergy", "FCCAnalyses::missingEnergy(365., ReconstructedParticles) * event_weight")
-        df = df.Define("cosTheta_miss", "FCCAnalyses::get_cosTheta_miss(missingEnergy) * event_weight")
-        df = df.Define("missing_p", "FCCAnalyses::ReconstructedParticle::get_p(missingEnergy) * event_weight")
-
-
+        df = df.Define("jj_m", "JetConstituentsUtils::InvariantMass(jets_p4[0], jets_p4[1])")
+        df = df.Define("missingEnergy", "FCCAnalyses::missingEnergy(365., ReconstructedParticles)")
+        df = df.Define("cosTheta_miss", "FCCAnalyses::get_cosTheta_miss(missingEnergy)")
+        df = df.Define("missing_p", "FCCAnalyses::ReconstructedParticle::get_p(missingEnergy)")
         df = df.Filter("cosTheta_miss < 0.98")
+
+        df = df.Define("missingEnergy_weighted", "missingEnergy * event_weight")
+        df = df.Define("cosTheta_miss_weighted", "cosTheta_miss * event_weight")
+        df = df.Define("missing_p_weighted", "missing_p * event_weight")
+        df = df.Define("jj_m_weighted", "jj_m * event_weight")
+
 
 
         if doInference:
@@ -159,7 +163,7 @@ class RDFanalysis:
 
     # define output branches to be saved
     def output():
-        branchList = [ "jj_m", "cosTheta_miss", "missingEnergy", "missing_p", "event_weight"]
+        branchList = [ "jj_m", "cosTheta_miss", "missingEnergy", "missing_p", "event_weight", "missingEnergy_weighted", "cosTheta_miss_weighted", "missing_p_weighted", "jj_m_weighted"]
         if doInference:
             branchList.append("mva_score")
         return branchList
