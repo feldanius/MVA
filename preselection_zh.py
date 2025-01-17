@@ -149,17 +149,18 @@ class RDFanalysis:
         df = df.Filter("cosTheta_miss < 0.98")
 
         df = df.Define("missingEnergy_type", "typeid(missingEnergy).name()")
-        df.Display({"missingEnergy_type"}).Print()
+        print("missingEnergy_type:", df.AsNumpy(columns=["missingEnergy_type"])["missingEnergy_type"][0])
         
         df = df.Define("cosTheta_miss_type", "typeid(cosTheta_miss).name()")
-        df.Display({"cosTheta_miss_type"}).Print()
+        print("cosTheta_miss_type:", df.AsNumpy(columns=["cosTheta_miss_type"])["cosTheta_miss_type"][0])
         
         df = df.Define("missing_p_type", "typeid(missing_p).name()")
-        df.Display({"missing_p_type"}).Print()
+        print("missing_p_type:", df.AsNumpy(columns=["missing_p_type"])["missing_p_type"][0])
         
         df = df.Define("jj_m_type", "typeid(jj_m).name()")
-        df.Display({"jj_m_type"}).Print()
-
+        print("jj_m_type:", df.AsNumpy(columns=["jj_m_type"])["jj_m_type"][0])
+        
+        
 
         
         #df = df.Define("missingEnergy_weighted", "missingEnergy * event_weight")
