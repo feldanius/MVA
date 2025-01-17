@@ -4,11 +4,7 @@ from addons.TMVAHelper.TMVAHelper import TMVAHelperXGB
 
 # list of processes (mandatory)
 processList = {
-    'p8_ee_WW_ecm355': {'fraction': 1},
-    'wzp6_ee_nuenueH_Hbb_ecm240': {'fraction': 1},
     'wzp6_ee_numunumuH_Hbb_ecm240': {'fraction': 1},
-    'p8_ee_ZZ_ecm240': {'fraction': 0.2},
-    'p8_ee_tt_ecm365': {'fraction': 0.2},
 }
 
 # Production tag when running over EDM4Hep centrally produced events, this points to the yaml files for getting sample statistics (mandatory)
@@ -111,7 +107,7 @@ class RDFanalysis:
         df = df.Define("ReconstructedParticlesNoMuons", "FCCAnalyses::ReconstructedParticle::remove(ReconstructedParticles, muons_all)")
         df = df.Define("ReconstructedParticlesNoLeptons", "FCCAnalyses::ReconstructedParticle::remove(ReconstructedParticlesNoMuons, electrons_all)")
         df = df.Define("ReconstructedParticlesNoLeptonsAndPhotons", "FCCAnalyses::ReconstructedParticle::remove(ReconstructedParticlesNoLeptons, photons_all)")
-
+        df = df.Define("event_weight", "3.0")
         
         # Clustering de jets usando partículas sin muones ni electrones
         global jetClusteringHelper
@@ -147,6 +143,8 @@ class RDFanalysis:
        
         df = df.Define("jets_p4", "JetConstituentsUtils::compute_tlv_jets({})".format(jetClusteringHelper.jets))
         df = df.Define("jj_m", "JetConstituentsUtils::InvariantMass(jets_p4[0], jets_p4[1])")
+        df = df.Define("missing_p", "FCCAnalyses::ReconstructedParticle::get_p(missingEnergy)")
+
 
         df = df.Define("missingEnergy", "FCCAnalyses::missingEnergy(365., ReconstructedParticles)")
         df = df.Define("cosTheta_miss", "FCCAnalyses::get_cosTheta_miss(missingEnergy)")
@@ -161,7 +159,7 @@ class RDFanalysis:
 
     # define output branches to be saved
     def output():
-        branchList = [ "jj_m", "cosTheta_miss", "missingEnergy"]
+        branchList = [ "jj_m", "cosTheta_miss", "missingEnergy", "missing_p", "event_weight"]
         if doInference:
             branchList.append("mva_score")
         return branchList
