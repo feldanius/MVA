@@ -11,3 +11,6 @@ _In order to run the preselection.py I have to run the following lines:_
 ___
 _In order to run the plots I have to run the following lines:_
 `fccanalysis plots plots.py`
+
+
+scp /eos/user/f/fdmartin/FCC365_jets_b_tagging_cut_missing_p-15 fdmartin@lxplus.cern.ch:/afs/cern.ch/user/f/fdmartin/FCCAnalyses/signal_strenght
