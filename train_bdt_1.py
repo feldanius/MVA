@@ -55,7 +55,7 @@ background_files = [
 ]
 
 # configuration of signal, background, variables, files, ...
-variables = [ "jj_m", "cosTheta_miss", "missingEnergy", "missing_p" ]
+variables = [ "jj_m", "cosTheta_miss", "missingEnergy.energy", "missing_p" ]
 weight_sf = 1e9
 sig_df = load_multiple_processes(signal_files, variables, weight_sf=weight_sf, target=1)
 bkg_df = load_multiple_processes(background_files, variables, weight_sf=weight_sf, target=0)
