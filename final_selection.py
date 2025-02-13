@@ -22,7 +22,7 @@ doTree = False
 
 # scale the histograms with the cross-section and integrated luminosity
 doScale = True
-intLumi = 7200000.0 # 7.2 /ab
+intLumi = 3000000.0 # 3 /ab
 
 saveTabular = True
 
@@ -35,9 +35,10 @@ cutList = {
 
 #Dictionary for the ouput variable/hitograms. The key is the name of the variable in the output files. "name" is the name of the variable in the input file, "title" is the x-axis label of the histogram, "bin" the number of bins of the histogram, "xmin" the minimum x-axis value and "xmax" the maximum x-axis value.
 histoList = {
-    "mva_score":{"cols": ["mva_score"], "title": "MVA score", "bins": [(100,0,1)]},
-    "zmumu_m":{"cols": ["zmumu_m"], "title": "m_{Z} (GeV)", "bins": [(250,0,250)]},
-    "zmumu_p":{"cols": ["zmumu_p"], "title": "p_{Z} (GeV)", "bins": [(250,0,250)]},
-    "zmumu_recoil_m":{"cols": ["zmumu_recoil_m"], "title": "Recoil (GeV)", "bins": [(250,0,250)]},
-    "zmumu_recoil_m_final":{"cols": ["zmumu_recoil_m"], "title": "Recoil (GeV)", "bins": [(200,120,140)]},
+    "mva_score": {"cols": ["mva_score"], "title": "MVA score", "bins": [(100, 0, 1)]},
+    "jj_m": {"cols": ["jj_m"], "title": "Dijet Mass (GeV)", "bins": [(200, 0, 365)]},
+    "cosTheta_miss": {"cols": ["cosTheta_miss"], "title": "cos(θ_{miss})", "bins": [(100, -1, 1)]},
+    "missingEnergy": {"cols": ["missingEnergy.energy"], "title": "Missing Energy (GeV)", "bins": [(200, 0, 365)]},
+    "missing_p": {"cols": ["missing_p"], "title": "Missing Momentum (GeV)", "bins": [(200, 0, 365)]},
 }
+
