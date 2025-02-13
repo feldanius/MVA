@@ -9,7 +9,7 @@ bdt = res['model']
 variables = res['variables']
 
 # Lista de archivos ROOT originales
-input_files = [
+root_files = [
     "p8_ee_WW_ecm355.root",
     "wzp6_ee_nuenueH_Hbb_ecm240.root",
     "wzp6_ee_numunumuH_Hbb_ecm240.root",
@@ -18,41 +18,49 @@ input_files = [
     "wzp6_ee_numunumuH_Hbb_ecm240_vbf.root"
 ]
 
-# Directorios de entrada y salida
-input_dir = "outputs/FCCee/higgs/mva/preselection/"
-output_dir = "outputs/FCCee/higgs/mva/preselection/"
+# Procesar cada archivo ROOT
+for root_file in root_files:
+    input_path = f"outputs/FCCee/higgs/mva/preselection/{root_file}"
+    output_path = input_path.replace(".root", "_mva.root")  # Crear copia con "_mva"
 
-for file_name in input_files:
-    input_path = input_dir + file_name
-    output_path = output_dir + file_name.replace(".root", "_mva.root")
+    # Abrir archivo ROOT original
+    file = ROOT.TFile.Open(input_path, "READ")
+    tree = file.Get("events")
+    
+    # Convertir el TTree en un DataFrame con RDataFrame
+    rdf = ROOT.RDataFrame(tree)
+    df = rdf.AsNumpy(variables)  # Extraer solo las variables necesarias
 
-    # Cargar archivo ROOT
-    input_file = ROOT.TFile(input_path, "READ")
-    tree = input_file.Get("events")
+    # Convertir a DataFrame de pandas
+    df = pd.DataFrame(df)
 
-    # Convertir el árbol ROOT en un DataFrame
-    df = pd.DataFrame({var: np.array(tree.AsMatrix([var]))[:, 0] for var in variables})
-
-    # Aplicar el modelo BDT
+    # Aplicar el modelo BDT y agregar la columna mva_score
     df["mva_score"] = bdt.predict_proba(df[variables])[:, 1]
 
-    # Crear un nuevo archivo ROOT
-    output_file = ROOT.TFile(output_path, "RECREATE")
-    new_tree = tree.CloneTree(0)  # Clonar estructura del árbol original
+    # Crear un nuevo archivo ROOT con la variable `mva_score`
+    new_file = ROOT.TFile(output_path, "RECREATE")
+    new_tree = ROOT.TTree("events", "events")
 
-    # Crear una nueva rama para mva_score
+    # Crear ramas para las variables originales y `mva_score`
+    branches = {}
+    for var in variables:
+        branches[var] = np.zeros(1, dtype=np.float32)
+        new_tree.Branch(var, branches[var], f"{var}/F")
+
     mva_score = np.zeros(1, dtype=np.float32)
-    branch = new_tree.Branch("mva_score", mva_score, "mva_score/F")
+    new_tree.Branch("mva_score", mva_score, "mva_score/F")
 
-    # Llenar el nuevo árbol con datos originales y mva_score
+    # Llenar el nuevo TTree con los valores del DataFrame
     for i in range(len(df)):
+        for var in variables:
+            branches[var][0] = df[var].iloc[i]
         mva_score[0] = df["mva_score"].iloc[i]
         new_tree.Fill()
 
     # Guardar el nuevo archivo ROOT
-    output_file.cd()
-    new_tree.Write()
-    output_file.Close()
-    input_file.Close()
+    new_file.Write()
+    new_file.Close()
+    file.Close()
 
-    print(f"Archivo procesado: {output_path}")
+    print(f"Procesado: {output_path}")
+
