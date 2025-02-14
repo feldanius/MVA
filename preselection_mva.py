@@ -29,7 +29,17 @@ for root_file in root_files:
     
     # Convertir el TTree en un DataFrame con RDataFrame
     rdf = ROOT.RDataFrame(tree)
-    df = pd.DataFrame(rdf.AsNumpy(variables)).astype(np.float32)  # Convertir a float32
+    data = rdf.AsNumpy(variables)  # Extraer datos como diccionario de numpy arrays
+
+    # Convertir cada RVec en un escalar
+    def extract_scalar(value):
+        """Extrae el primer valor si es un RVec, o devuelve el mismo valor si es escalar."""
+        return value[0] if isinstance(value, np.ndarray) and value.shape[0] > 0 else 0.0
+
+    df = pd.DataFrame({var: [extract_scalar(row) for row in data[var]] for var in variables})
+
+    # Convertir a float32
+    df = df.astype(np.float32)
 
     # Aplicar el modelo BDT y agregar la columna mva_score
     df["mva_score"] = bdt.predict_proba(df[variables])[:, 1]
