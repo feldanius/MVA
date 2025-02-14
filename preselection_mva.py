@@ -29,10 +29,7 @@ for root_file in root_files:
     
     # Convertir el TTree en un DataFrame con RDataFrame
     rdf = ROOT.RDataFrame(tree)
-    df = rdf.AsNumpy(variables)  # Extraer solo las variables necesarias
-
-    # Convertir a DataFrame de pandas
-    df = pd.DataFrame(df)
+    df = pd.DataFrame(rdf.AsNumpy(variables)).astype(np.float32)  # Convertir a float32
 
     # Aplicar el modelo BDT y agregar la columna mva_score
     df["mva_score"] = bdt.predict_proba(df[variables])[:, 1]
@@ -63,4 +60,3 @@ for root_file in root_files:
     file.Close()
 
     print(f"Procesado: {output_path}")
-
