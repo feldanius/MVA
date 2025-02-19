@@ -25,6 +25,9 @@ And third
 ```bash
 cd examples/FCCee/higgs/mva
 ```
+```bash
+cd outputs/FCCee/higgs/mva
+```
 
 In order to run the preselection.py I have to run the following lines:
 ```bash
