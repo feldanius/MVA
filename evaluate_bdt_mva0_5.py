@@ -117,7 +117,7 @@ def plot_score_threshold():
 # Función para graficar los histogramas de las variables cinemáticas con BDT score > 0.5
 def plot_kinematics_threshold():
     # Lista de variables cinemáticas a graficar
-    kinematics = ['jj_m', 'cosTheta_miss', 'missingEnergy', 'missing_p']
+    kinematics = ['jj_m', 'cosTheta_miss', 'missingEnergy.energy', 'missing_p']
 
     # Obtenemos los scores para filtrar
     train_scores = bdt.predict_proba(train_data)[:, 1]
