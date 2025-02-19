@@ -89,7 +89,7 @@ def plot_importance():
     plt.close()
 
 
-# Función para graficar el histograma de BDT scores con score > 0.5
+#BDT_score > 0.5
 def plot_score_threshold():
     # Calculamos las predicciones para entrenamiento y test
     train_predictions = bdt.predict_proba(train_data)[:, 1]
@@ -114,7 +114,7 @@ def plot_score_threshold():
     plt.close()
 
 
-# Función para graficar los histogramas de las variables cinemáticas con BDT score > 0.5
+# Kinematic variables BDT score > 0.5
 def plot_kinematics_threshold():
     # Lista de variables cinemáticas a graficar
     kinematics = ['jj_m', 'cosTheta_miss', 'missingEnergy.energy', 'missing_p']
@@ -126,7 +126,6 @@ def plot_kinematics_threshold():
     train_mask = train_scores > 0.5
     test_mask = test_scores > 0.5
 
-    # Para cada variable, se genera su histograma filtrado
     for var in kinematics:
         if var in variables:
             idx = variables.index(var)
@@ -147,7 +146,7 @@ def plot_kinematics_threshold():
             plt.savefig(f"{outDir}/{var}_threshold.pdf")
             plt.close()
         else:
-            print(f"Warning: Variable '{var}' no encontrada en la lista de variables.")
+            print(f"Warning: Variable '{var}' not founded.")
 
 
 if __name__ == "__main__":
@@ -164,7 +163,5 @@ if __name__ == "__main__":
     plot_score()
     plot_roc()
     plot_importance()
-
-    # Generamos los nuevos histogramas:
     plot_score_threshold()
     plot_kinematics_threshold()
