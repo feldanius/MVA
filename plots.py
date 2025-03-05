@@ -1,44 +1,55 @@
 import ROOT
 
-
-# global parameters
-intLumi        = 1.
+# Parámetros globales
+intLumi        = 1.0
 intLumiLabel   = "L = 3 ab^{-1}"
-ana_tex        = '(VBF) e^{+}e^{-} #nu^{+}#nu^{-} H #rightarrow #b^{+}#b^{-}
+ana_tex        = '(VBF) e^{+}e^{-} #nu^{+}#nu^{-} H #rightarrow #b^{+}#b^{-}'
 delphesVersion = '3.4.2'
 energy         = 365.0
 collider       = 'FCC-ee'
-inputDir       = f"outputs/FCCee/higgs/mva/plots_training/"
-formats        = ['png','pdf']
-outdir         = f"outputs/FCCee/higgs/mva/plots/"
-yaxis          = ['lin','log']
+inputDir       = "outputs/FCCee/higgs/mva/plots_training/"
+formats        = ['png', 'pdf']
+outdir         = "outputs/FCCee/higgs/mva/plots/"
+yaxis          = ['lin', 'log']
 stacksig       = ['nostack']
 plotStatUnc    = True
 
+# Variables a plotear: se utilizan solo las versiones con corte (threshold)
+variables = [
+    'missing_p_threshold',
+    'missingEnergy.energy_threshold',
+    'jj_m_threshold',
+    'cosTheta_miss_threshold',
+    'score_threshold'
+]
+rebin = [1, 1]  # Rebinning uniforme por variable (opcional)
 
-
-
-variables = ['missing_p_threshold', 'missingEnergy.energy_threshold', 'jj_m_threshold', 'cosTheta_miss_threshold', 'score', 'score_threshold']
-rebin = [1, 1] # uniform rebin per variable (optional)
-
-###Dictonnary with the analysis name as a key, and the list of selections to be plotted for this analysis. The name of the selections should be the same than in the final selection
+# Diccionario de selecciones: como ya aplicaste el corte final manualmente, 
+# utilizamos una única selección representada por "score_threshold"
 selections = {}
-selections['ZH']   = ["sel0", "sel1"]
+selections['Signal'] = ["score_threshold"]
 
+# Etiquetas extra para la selección
 extralabel = {}
-extralabel['sel0'] = "Basic selection"
-extralabel['sel1'] = "MVA > 0.5"
+extralabel['score_threshold'] = "MVA > 0.5"
 
+# Definición de colores para cada análisis/muestra
 colors = {}
-colors['ZH'] = ROOT.kRed
-colors['WW'] = ROOT.kBlue+1
+colors['Signal'] = ROOT.kRed
+colors['Background'] = ROOT.kBlue + 1
 
-
+# Configuración de las muestras a plotear para cada análisis: 
+# Aquí se definen las muestras señal y de fondo.
 plots = {}
-plots['ZH'] = {'signal':{'ZH':['wzp6_ee_mumuH_ecm240']},
-               'backgrounds':{'WW':['p8_ee_WW_ecm240']}
-           }
+plots['ZH'] = {
+    'signal': {'Signal': ['wzp6_ee_mumuH_ecm240']},
+    'backgrounds': {'Background': ['p8_ee_WW_ecm240']}
+}
 
+# Leyendas para las muestras
 legend = {}
-legend['ZH'] = 'ZH'
-legend['WW'] = 'WW'
+legend['signal'] = 'Signal'
+legend['background'] = 'Background'
+
+
+
