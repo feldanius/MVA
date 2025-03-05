@@ -1,4 +1,5 @@
 import ROOT
+import os
 
 # Parámetros globales
 intLumi        = 1.0
@@ -8,48 +9,47 @@ delphesVersion = '3.4.2'
 energy         = 365.0
 collider       = 'FCC-ee'
 inputDir       = "outputs/FCCee/higgs/mva/plots_training/"
-formats        = ['png', 'pdf']
-outdir         = "outputs/FCCee/higgs/mva/plots/"
-yaxis          = ['lin', 'log']
-stacksig       = ['nostack']
-plotStatUnc    = True
+outdir         = "/eos/user/f/fdmartin/FCC365_MVA_BDT/Final_Plots/"
+#outdir         = "outputs/FCCee/higgs/mva/plots/"
 
-# Variables a plotear: se utilizan solo las versiones con corte (threshold)
-variables = [
-    'missing_p_threshold',
-    'missingEnergy.energy_threshold',
-    'jj_m_threshold',
-    'cosTheta_miss_threshold',
-    'score_threshold'
+files_to_process = [
+    "missing_p_threshold.png",
+    "missingEnergy.energy_threshold.png",
+    "jj_m_threshold.png",
+    "cosTheta_miss_threshold.png",
+    "score_threshold.png",
+    "score.png"
 ]
-rebin = [1, 1]  # Rebinning uniforme por variable (opcional)
 
-# Diccionario de selecciones: como ya aplicaste el corte final manualmente, 
-# utilizamos una única selección representada por "score_threshold"
-selections = {}
-selections['Signal'] = ["score_threshold"]
+if not os.path.exists(outdir):
+    os.makedirs(outdir)
 
-# Etiquetas extra para la selección
-extralabel = {}
-extralabel['score_threshold'] = "MVA > 0.5"
+for file in files_to_process:
+    file_path = os.path.join(inputDir, file)
+    if not os.path.exists(file_path):
+        print(f"Archivo {file_path} no existe, se salta.")
+        continue
 
-# Definición de colores para cada análisis/muestra
-colors = {}
-colors['Signal'] = ROOT.kRed
-colors['Background'] = ROOT.kBlue + 1
+    c = ROOT.TCanvas("c", "c", 800, 600)
 
-# Configuración de las muestras a plotear para cada análisis: 
-# Aquí se definen las muestras señal y de fondo.
-plots = {}
-plots['ZH'] = {
-    'signal': {'Signal': ['wzp6_ee_mumuH_ecm240']},
-    'backgrounds': {'Background': ['p8_ee_WW_ecm240']}
-}
+    img = ROOT.TImage.Open(file_path)
+    if not img:
+        print(f"No se pudo cargar la imagen {file_path}")
+        continue
 
-# Leyendas para las muestras
-legend = {}
-legend['signal'] = 'Signal'
-legend['background'] = 'Background'
+    img.Draw("X")  # "X" permite dibujar la imagen usando las coordenadas del canvas
 
+    latex = ROOT.TLatex()
+    latex.SetNDC()               
+    latex.SetTextFont(42)
+    latex.SetTextSize(0.04)
+    latex.DrawLatex(0.15, 0.92, intLumiLabel)
+    latex.DrawLatex(0.15, 0.87, ana_tex)
 
+    c.Update()
 
+    base, ext = os.path.splitext(file)
+    out_file_name = os.path.join(outdir, f"{base}_final{ext}")
+    c.SaveAs(out_file_name)
+    c.Close()
+    print(f"Guardado: {out_file_name}")
