@@ -3,12 +3,12 @@ import ROOT
 
 # global parameters
 intLumi        = 1.
-intLumiLabel   = "L = 7.2 ab^{-1}"
-ana_tex        = 'e^{+}e^{-} #rightarrow ZH #rightarrow #mu^{+}#mu^{-} + X'
+intLumiLabel   = "L = 3 ab^{-1}"
+ana_tex        = '(VBF) e^{+}e^{-} #nu^{+}#nu^{-} H #rightarrow #b^{+}#b^{-}
 delphesVersion = '3.4.2'
-energy         = 240.0
+energy         = 365.0
 collider       = 'FCC-ee'
-inputDir       = f"outputs/FCCee/higgs/mva/final_selection/"
+inputDir       = f"outputs/FCCee/higgs/mva/plots_training/"
 formats        = ['png','pdf']
 outdir         = f"outputs/FCCee/higgs/mva/plots/"
 yaxis          = ['lin','log']
@@ -18,7 +18,7 @@ plotStatUnc    = True
 
 
 
-variables = ['zmumu_recoil_m_final', 'mva_score']
+variables = ['missing_p_threshold', 'missingEnergy.energy_threshold', 'jj_m_threshold', 'cosTheta_miss_threshold', 'score', 'score_threshold']
 rebin = [1, 1] # uniform rebin per variable (optional)
 
 ###Dictonnary with the analysis name as a key, and the list of selections to be plotted for this analysis. The name of the selections should be the same than in the final selection
