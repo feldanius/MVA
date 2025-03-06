@@ -7,8 +7,8 @@ import pickle
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-i", "--input", type=str, default="outputs/FCCee/higgs/mva/bdt_model_example.pkl", help="Input pkl file")
-parser.add_argument("-o", "--outDir", type=str, default="outputs/FCCee/higgs/mva/plots_training", help="Output directory")
+parser.add_argument("-i", "--input", type=str, default="outputs/FCCee/higgs/mva/test_1_pkl/bdt_model_example.pkl", help="Input pkl file")
+parser.add_argument("-o", "--outDir", type=str, default="outputs/FCCee/higgs/mva/plots_training_rename_energy", help="Output directory")
 args = parser.parse_args()
 
 
