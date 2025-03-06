@@ -21,8 +21,8 @@ procDict = "FCCee_procDict_winter2023_IDEA.json"
 includePaths = ["functions.h"]
 
 # Output directory
-#outputDir   = f"outputs/FCCee/higgs/mva/preselection_real/"
-outputDir   = "/eos/user/f/fdmartin/FCC365_MVA_preselection_Real_Simulations"
+outputDir   = f"outputs/FCCee/higgs/mva/preselection_real/"
+#outputDir   = "/eos/user/f/fdmartin/FCC365_MVA_preselection_Real_Simulations"
 
 # Multithreading: -1 means using all cores
 nCPUS       = -1
@@ -147,7 +147,7 @@ class RDFanalysis:
         df = df.Define("jets_p4", "JetConstituentsUtils::compute_tlv_jets({})".format(jetClusteringHelper.jets))
         df = df.Define("jj_m", "JetConstituentsUtils::InvariantMass(jets_p4[0], jets_p4[1])")
         df = df.Define("missingEnergy", "FCCAnalyses::missingEnergy(365., ReconstructedParticles)")
-        df = df.Define("missingEnergy_energy", "missingEnergy.energy")
+        #df = df.Define("missingEnergy_energy", "missingEnergy.energy")
         df = df.Define("cosTheta_miss", "FCCAnalyses::get_cosTheta_miss(missingEnergy)")
         df = df.Define("missing_p", "FCCAnalyses::ReconstructedParticle::get_p(missingEnergy)")
         df = df.Filter("cosTheta_miss < 0.98")
@@ -161,7 +161,7 @@ class RDFanalysis:
 
     # define output branches to be saved
     def output():
-        branchList = [ "jj_m", "cosTheta_miss", "missingEnergy_energy","missing_p"]
+        branchList = [ "jj_m", "cosTheta_miss", "missingEnergy","missing_p"]
         if doInference:
             branchList.append("mva_score")
         return branchList
