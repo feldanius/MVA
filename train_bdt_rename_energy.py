@@ -32,15 +32,15 @@ variables = ["jj_m", "cosTheta_miss", "missingEnergy.energy", "missing_p"]
 weight_sf = 1e9
 
 signal_files = [
-    "outputs/FCCee/higgs/mva/preselection/wzp6_ee_nuenueH_Hbb_ecm240",
-    "outputs/FCCee/higgs/mva/preselection/wzp6_ee_numunumuH_Hbb_ecm240_vbf"
+    "outputs/FCCee/higgs/mva/preselection/wzp6_ee_nuenueH_Hbb_ecm240.root",
+    "outputs/FCCee/higgs/mva/preselection/wzp6_ee_numunumuH_Hbb_ecm240_vbf.root"
 ]
 
 background_files = [
-    "outputs/FCCee/higgs/mva/preselection/p8_ee_ZZ_ecm240",
-    "outputs/FCCee/higgs/mva/preselection/p8_ee_WW_ecm355", 
-    "outputs/FCCee/higgs/mva/preselection/p8_ee_tt_ecm365",
-    "outputs/FCCee/higgs/mva/preselection/wzp6_ee_numunumuH_Hbb_ecm240"
+    "outputs/FCCee/higgs/mva/preselection/p8_ee_ZZ_ecm240.root",
+    "outputs/FCCee/higgs/mva/preselection/p8_ee_WW_ecm355.root", 
+    "outputs/FCCee/higgs/mva/preselection/p8_ee_tt_ecm365.root",
+    "outputs/FCCee/higgs/mva/preselection/wzp6_ee_numunumuH_Hbb_ecm240.root"
 ]
 
 print("Parse inputs")
