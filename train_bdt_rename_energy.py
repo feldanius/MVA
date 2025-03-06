@@ -8,26 +8,33 @@ import pickle
 
 ROOT.gROOT.SetBatch(True)
 
-def load_process(fIn, variables, target=0, weight_sf=1.):
+def load_process(fIn, variables_raw, target=0, weight_sf=1.):
     f = uproot.open(fIn)
     tree = f["events"]
     weight = 1.0 / tree.num_entries * weight_sf  # Ajuste de peso
     print("Load {} with {} events and weight {}".format(fIn.replace(".root", ""), tree.num_entries, weight))
-
-    df = tree.arrays(variables, library="pd")  # Convertir a DataFrame de pandas
+    
+    # Usamos la lista original para leer las ramas
+    df = tree.arrays(variables_raw, library="pd")
+    
+    # Renombramos la columna después de la lectura
     df.rename(columns={'missingEnergy.energy': 'missingEnergy_energy'}, inplace=True)
     
     df['target'] = target  # Etiqueta de señal (1) y fondo (0)
     df['weight'] = weight
     return df
 
-def load_multiple_processes(files, variables, weight_sf=1., target=0):
+def load_multiple_processes(files, variables_raw, weight_sf=1., target=0):
     df_list = []
     for fIn in files:
-        df = load_process(fIn, variables, target=target, weight_sf=weight_sf)
+        df = load_process(fIn, variables_raw, target=target, weight_sf=weight_sf)
         df_list.append(df)
     return pd.concat(df_list, ignore_index=True)
 
+# Lista de variables para leer (nombres originales)
+variables_raw = ["jj_m", "cosTheta_miss", "missingEnergy.energy", "missing_p"]
+
+# Lista de variables para el entrenamiento (nombres actualizados)
 variables = ["jj_m", "cosTheta_miss", "missingEnergy_energy", "missing_p"]
 weight_sf = 1e9
 
