@@ -28,7 +28,7 @@ def load_multiple_processes(files, variables, weight_sf=1., target=0):
         df_list.append(df)
     return pd.concat(df_list, ignore_index=True)
 
-variables = ["jj_m", "cosTheta_miss", "missingEnergy.energy", "missing_p"]
+variables = ["jj_m", "cosTheta_miss", "missingEnergy_energy", "missing_p"]
 weight_sf = 1e9
 
 signal_files = [
