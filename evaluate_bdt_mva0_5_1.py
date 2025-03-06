@@ -144,7 +144,6 @@ if __name__ == "__main__":
     test_labels = res['test_labels']
     variables = res['variables']
 
-    # Genera los 8 histogramas:
     plot_importance()        
     plot_roc()               
     plot_score()             
