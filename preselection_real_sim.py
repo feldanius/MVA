@@ -153,7 +153,7 @@ class RDFanalysis:
 
 
         if doInference:
-            tmva_helper = TMVAHelperXGB("outputs/FCCee/higgs/mva/bdt_model_example_real.root", "bdt_model") # read the XGBoost training
+            tmva_helper = TMVAHelperXGB("outputs/FCCee/higgs/mva/bdt_model_example.root", "bdt_model") # read the XGBoost training
             df = tmva_helper.run_inference(df, col_name="mva_score") # by default, makes a new column mva_score
 
         return df
