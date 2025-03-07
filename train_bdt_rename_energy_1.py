@@ -44,7 +44,7 @@ background_files = [
     "outputs/FCCee/higgs/mva/preselection/p8_ee_ZZ_ecm240.root",
     "outputs/FCCee/higgs/mva/preselection/p8_ee_WW_ecm355.root", 
     "outputs/FCCee/higgs/mva/preselection/p8_ee_tt_ecm365.root",
-    "outputs/FCCee/higgs/mva/preselection/wzp6_ee_numunumuH_Hbb.ecm240.root"
+    "outputs/FCCee/higgs/mva/preselection/wzp6_ee_numunumuH_Hbb_ecm240.root"
 ]
 
 print("Parse inputs")
