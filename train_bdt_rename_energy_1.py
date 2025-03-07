@@ -95,11 +95,25 @@ else:
 print("Export model")
 bdt.get_booster().save_model("outputs/FCCee/higgs/mva/test_1_pkl/bdt_model_example.json")
 
+ROOT.TMVA.Experimental.SaveXGBoost("outputs/FCCee/higgs/mva/test_1_pkl/bdt_model_example.json", 
+                                    "bdt_model", 
+                                    fOutName, 
+                                    num_inputs=len(variables))
+
+fOut = ROOT.TFile.Open(fOutName, "UPDATE")
+if not fOut or fOut.IsZombie():
+    print(f"Error opening ROOT file: {fOutName}")
+else:
+    print(f"ROOT file opened correctly: {fOutName}")
+    fOut.Close()
+
 variables_ = ROOT.TList()
 for var in variables:
     variables_.Add(ROOT.TObjString(var))
+# Abrir nuevamente en modo RECREATE para escribir la lista de variables
+fOut = ROOT.TFile(fOutName, "UPDATE")
 fOut.WriteObject(variables_, "variables")
-fOut.Close()  
+fOut.Close()  # Cerrar el archivo para asegurar que se guarden los datos
 
 save = {}
 save['model'] = bdt
