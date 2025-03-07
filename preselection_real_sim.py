@@ -148,9 +148,7 @@ class RDFanalysis:
         df = df.Define("jj_m", "JetConstituentsUtils::InvariantMass(jets_p4[0], jets_p4[1])")
         
         df = df.Define("missingEnergy", "FCCAnalyses::missingEnergy(365., ReconstructedParticles)");
-        df = df.Define("missingEnergy_e", "FCCAnalyses::ZHfunctions::missingEnergy(RecoParticles, PFOs, MCParticles)");
-        df = df.Define("missingEnergy_final", "ReconstructedParticle::set_energy(missingEnergy, FCCAnalyses::ReconstructedParticle::get_e(missingEnergy_e))");
-
+        df = df.Alias("missingEnergy_energy", "missingEnergy")
         #df = df.Define("missingEnergy_energy", "FCCAnalyses::ReconstructedParticle::get_e(missingEnergy)")
         #df = df.Alias("missingEnergy.energy", "missingEnergy_energy")
         df = df.Define("cosTheta_miss", "FCCAnalyses::get_cosTheta_miss(missingEnergy)")
@@ -159,13 +157,13 @@ class RDFanalysis:
 
 
         if doInference:
-            tmva_helper = TMVAHelperXGB("outputs/FCCee/higgs/mva/bdt_model_example.root", "bdt_model") # read the XGBoost training
+            tmva_helper = TMVAHelperXGB("outputs/FCCee/higgs/mva/test_1_pkl/bdt_model_example.root", "bdt_model") # read the XGBoost training
             df = tmva_helper.run_inference(df, col_name="mva_score") # by default, makes a new column mva_score
 
         return df
 
     def output():
-        branchList = [ "jj_m", "cosTheta_miss", "missingEnergy_final", "missing_p" ]
+        branchList = [ "jj_m", "cosTheta_miss", "missingEnergy_energy", "missing_p" ]
         #branchList = [ "jj_m", "cosTheta_miss", "missingEnergy.energy", "missing_p" ]
         if doInference:
             branchList.append("mva_score")
