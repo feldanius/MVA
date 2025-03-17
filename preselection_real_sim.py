@@ -147,8 +147,9 @@ class RDFanalysis:
         df = df.Define("jets_p4", "JetConstituentsUtils::compute_tlv_jets({})".format(jetClusteringHelper.jets))
         df = df.Define("jj_m", "JetConstituentsUtils::InvariantMass(jets_p4[0], jets_p4[1])")
         
-        df = df.Define("missingEnergy", "FCCAnalyses::missingEnergy(365., ReconstructedParticles)");
-        df = df.Alias("missingEnergy_energy", "missingEnergy")
+        df = df.Define("missingEnergy", "FCCAnalyses::missingEnergy(365., ReconstructedParticles)")
+        df = df.Define("missingEnergy_energy", "missingEnergy[0]")
+        #df = df.Alias("missingEnergy_energy", "missingEnergy")
         #df = df.Define("missingEnergy_energy", "FCCAnalyses::ReconstructedParticle::get_e(missingEnergy)")
         #df = df.Alias("missingEnergy.energy", "missingEnergy_energy")
         df = df.Define("cosTheta_miss", "FCCAnalyses::get_cosTheta_miss(missingEnergy)")
