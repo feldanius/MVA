@@ -143,33 +143,24 @@ class RDFanalysis:
         df = jetFlavourHelper.define(df)
         df = jetFlavourHelper.inference(weaver_preproc, weaver_model, df)
 
-        df = df.Filter("event_njet >= 2")    
+        df = df.Filter("event_njet == 2")    
         df = df.Define("jets_p4", "JetConstituentsUtils::compute_tlv_jets({})".format(jetClusteringHelper.jets))
         df = df.Define("jj_m", "JetConstituentsUtils::InvariantMass(jets_p4[0], jets_p4[1])")
-        
         df = df.Define("missingEnergy", "FCCAnalyses::missingEnergy(365., ReconstructedParticles)")
         df = df.Define("missingEnergy_energy", "FCCAnalyses::ReconstructedParticle::get_e({missingEnergy[0]})")
         df = df.Define("cosTheta_miss", "FCCAnalyses::get_cosTheta_miss({missingEnergy[0]})")
         df = df.Define("missing_p", "FCCAnalyses::ReconstructedParticle::get_p({missingEnergy[0]})")
-        #df = df.Define("missingEnergy_energy", "FCCAnalyses::ReconstructedParticle::get_e(missingEnergy[0])")
-        #df = df.Define("missingEnergy_energy", "missingEnergy[0]")
-        #df = df.Alias("missingEnergy_energy", "missingEnergy")
-        #df = df.Define("missingEnergy_energy", "FCCAnalyses::ReconstructedParticle::get_e(missingEnergy)")
-        #df = df.Alias("missingEnergy.energy", "missingEnergy_energy")
-        #df = df.Define("cosTheta_miss", "FCCAnalyses::get_cosTheta_miss(missingEnergy)")
-        #df = df.Define("missing_p", "FCCAnalyses::ReconstructedParticle::get_p(missingEnergy)")
         df = df.Filter("cosTheta_miss < 0.98")
 
 
         if doInference:
-            tmva_helper = TMVAHelperXGB("outputs/FCCee/higgs/mva/test_1_pkl/bdt_model_example.root", "bdt_model") # read the XGBoost training
+            tmva_helper = TMVAHelperXGB("outputs/FCCee/higgs/mva/test_2_pkl/bdt_model_example.root", "bdt_model") # read the XGBoost training
             df = tmva_helper.run_inference(df, col_name="mva_score") # by default, makes a new column mva_score
 
         return df
 
     def output():
         branchList = [ "jj_m", "cosTheta_miss", "missingEnergy_energy", "missing_p" ]
-        #branchList = [ "jj_m", "cosTheta_miss", "missingEnergy.energy", "missing_p" ]
         if doInference:
             branchList.append("mva_score")
         return branchList
