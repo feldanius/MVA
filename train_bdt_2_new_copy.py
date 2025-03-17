@@ -96,12 +96,12 @@ else:
     print(f"ROOT file created correctly: {fOutName}")
 
 print("Export model")
-bdt.get_booster().save_model("outputs/FCCee/higgs/mva/test_2_pkl/bdt_model_example.json")
-
-ROOT.TMVA.Experimental.SaveXGBoost("outputs/FCCee/higgs/mva/test_2_pkl/bdt_model_example.json", 
+bdt_booster = bdt.get_booster()
+ROOT.TMVA.Experimental.SaveXGBoost(bdt_booster, 
                                     "bdt_model", 
                                     fOutName, 
                                     num_inputs=len(variables))
+
 
 fOut = ROOT.TFile.Open(fOutName, "UPDATE")
 if not fOut or fOut.IsZombie():
