@@ -89,34 +89,54 @@ bdt = xgb.XGBClassifier(**params)
 bdt.fit(train_data, train_labels, verbose=True, eval_set=eval_set, sample_weight=train_weights)
 
 fOutName = "outputs/FCCee/higgs/mva/test_2_pkl/bdt_model_example.root"
-fOut = ROOT.TFile(fOutName, "RECREATE")
-if not fOut or fOut.IsZombie():
-    print(f"Error creating ROOT file: {fOutName}")
+root_file = ROOT.TFile.Open(fOutName, "UPDATE")
+if not root_file:
+    print(f"Error al abrir el archivo ROOT: {fOutName}")
 else:
-    print(f"ROOT file created correctly: {fOutName}")
+    print(f"Archivo ROOT abierto correctamente: {fOutName}")
 
+# Exportar el modelo a ROOT (con JSON primero)
 print("Export model")
-bdt_booster = bdt.get_booster()
-ROOT.TMVA.Experimental.SaveXGBoost(bdt_booster, 
-                                    "bdt_model", 
-                                    fOutName, 
-                                    num_inputs=len(variables))
+bdt.get_booster().save_model("outputs/FCCee/higgs/mva/test_2_pkl/bdt_model_example.json")  # Guardar como .json
 
+# Luego puedes intentar cargar el modelo desde JSON si fuera necesario
+# ROOT.TMVA.Experimental.SaveXGBoost("outputs/FCCee/higgs/mva/bdt_model_example.json", "bdt_model", fOutName, num_inputs=len(variables))
 
-fOut = ROOT.TFile.Open(fOutName, "UPDATE")
-if not fOut or fOut.IsZombie():
-    print(f"Error opening ROOT file: {fOutName}")
-else:
-    print(f"ROOT file opened correctly: {fOutName}")
-    fOut.Close()
-
+# Guardar las variables en ROOT
 variables_ = ROOT.TList()
 for var in variables:
     variables_.Add(ROOT.TObjString(var))
-# Abrir nuevamente en modo RECREATE para escribir la lista de variables
 fOut = ROOT.TFile(fOutName, "UPDATE")
 fOut.WriteObject(variables_, "variables")
-fOut.Close()  # Cerrar el archivo para asegurar que se guarden los datos
+
+#fOutName = "outputs/FCCee/higgs/mva/test_2_pkl/bdt_model_example.root"
+#fOut = ROOT.TFile(fOutName, "RECREATE")
+#if not fOut or fOut.IsZombie():
+ #   print(f"Error creating ROOT file: {fOutName}")
+#else:
+ #   print(f"ROOT file created correctly: {fOutName}")
+
+#print("Export model")
+#bdt_booster = bdt.get_booster()
+#ROOT.TMVA.Experimental.SaveXGBoost(bdt_booster, 
+ #                                   "bdt_model", 
+  #                                  fOutName, 
+   #                                 num_inputs=len(variables))
+
+
+#fOut = ROOT.TFile.Open(fOutName, "UPDATE")
+#if not fOut or fOut.IsZombie():
+ #   print(f"Error opening ROOT file: {fOutName}")
+#else:
+ #   print(f"ROOT file opened correctly: {fOutName}")
+  #  fOut.Close()
+
+#variables_ = ROOT.TList()
+#for var in variables:
+ #   variables_.Add(ROOT.TObjString(var))
+#fOut = ROOT.TFile(fOutName, "UPDATE")
+#fOut.WriteObject(variables_, "variables")
+#fOut.Close()  # Cerrar el archivo para asegurar que se guarden los datos
 
 save = {}
 save['model'] = bdt
