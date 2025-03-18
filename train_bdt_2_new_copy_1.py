@@ -85,18 +85,23 @@ eval_set = [(train_data, train_labels), (test_data, test_labels)]
 bdt = xgb.XGBClassifier(**params)
 bdt.fit(train_data, train_labels, verbose=True, eval_set=eval_set, sample_weight=train_weights)
 
-fOutName = "outputs/FCCee/higgs/mva/test_3_pkl/bdt_model_example.root"
-print("Export model")
-bdt.get_booster().save_model("outputs/FCCee/higgs/mva/test_3_pkl/bdt_model_example.json")  # Guardar como .json
 
+print("Export model")
 fOutName = "outputs/FCCee/higgs/mva/test_3_pkl/bdt_model_example.root"
+
+# Asegurar que el directorio existe (aunque creas que ya existe, es clave para evitar errores)
+import os
+os.makedirs(os.path.dirname(fOutName), exist_ok=True)  # <--- Esto crea la carpeta test_3_pkl si no existe
+
+# 1. Exportar el modelo XGBoost a ROOT usando el Booster directamente
 ROOT.TMVA.Experimental.SaveXGBoost(
-    "outputs/FCCee/higgs/mva/test_3_pkl/bdt_model_example.json",  
-    "bdt_model",       
-    fOutName,          
-    num_inputs=len(variables)  # Número de variables de entrada
+    bdt.get_booster(),  # Pasar el modelo XGBoost en memoria, NO la ruta del JSON
+    "bdt_model", 
+    fOutName, 
+    num_inputs=len(variables)
 )
 
+# 2. Guardar las variables en el archivo ROOT
 fOut = ROOT.TFile(fOutName, "UPDATE")
 variables_list = ROOT.TList()
 for var in variables:
@@ -104,16 +109,13 @@ for var in variables:
 fOut.WriteObject(variables_list, "variables")
 fOut.Close()
 
-
-
-
-save = {}
-save['model'] = bdt
-save['train_data'] = train_data
-save['test_data'] = test_data
-save['train_labels'] = train_labels
-save['test_labels'] = test_labels
-save['variables'] = variables
-pickle.dump(save, open("outputs/FCCee/higgs/mva/test_3_pkl/bdt_model_example.pkl", "wb"))
+# 3. Guardar el modelo en .pkl
+save = {
+    'model': bdt,
+    'train_data': train_data,
+    'test_data': test_data,
+    'variables': variables
+}
+pickle.dump(save, open(os.path.join(os.path.dirname(fOutName), "bdt_model_example.pkl"), "wb"))
 
 print("Modelo exportado exitosamente")
