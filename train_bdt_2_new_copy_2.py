@@ -88,43 +88,22 @@ bdt.fit(train_data, train_labels, verbose=True, eval_set=eval_set, sample_weight
 
 
 print("Export model")
-output_dir = "outputs/FCCee/higgs/mva/test_3_pkl"
-os.makedirs(output_dir, exist_ok=True)
-base_name = "bdt_model_example"
+fOutName = "outputs/FCCee/higgs/mva/test_3_pkl/bdt_model_example.root"
+ROOT.TMVA.Experimental.SaveXGBoost(bdt, "bdt_model", fOutName, num_inputs=len(variables))
 
-# 1. Exportar el modelo a ROOT
-fOutName = os.path.join(output_dir, f"{base_name}.root")
-ROOT.TMVA.Experimental.SaveXGBoost(
-    bdt.get_booster(),  # Asegúrate de que get_booster() retorne un Booster y no un string
-    "bdt_model", 
-    fOutName, 
-    num_inputs=len(variables)
-)
-
-# Guardar la lista de variables en el archivo ROOT
-fOut = ROOT.TFile(fOutName, "UPDATE")
-variables_list = ROOT.TList()
+# append the variables
+variables_ = ROOT.TList()
 for var in variables:
-    variables_list.Add(ROOT.TObjString(var))
-fOut.WriteObject(variables_list, "variables")
-fOut.Close()
-print(f"Modelo ROOT exportado en: {fOutName}")
+     variables_.Add(ROOT.TObjString(var))
+fOut = ROOT.TFile(fOutName, "UPDATE")
+fOut.WriteObject(variables_, "variables")
 
-# 2. Exportar el modelo a JSON
-jsonOutName = os.path.join(output_dir, f"{base_name}.json")
-bdt.get_booster().save_model(jsonOutName)
-print(f"Modelo JSON exportado en: {jsonOutName}")
 
-# 3. Guardar el modelo y datos en formato Pickle
-pklOutName = os.path.join(output_dir, f"{base_name}.pkl")
-save = {
-    'model': bdt,
-    'train_data': train_data,
-    'test_data': test_data,
-    'variables': variables
-}
-with open(pklOutName, "wb") as f:
-    pickle.dump(save, f)
-print(f"Modelo Pickle exportado en: {pklOutName}")
-
-print("Exportación completada exitosamente")
+save = {}
+save['model'] = bdt
+save['train_data'] = train_data
+save['test_data'] = test_data
+save['train_labels'] = train_labels
+save['test_labels'] = test_labels
+save['variables'] = variables
+pickle.dump(save, open("outputs/FCCee/higgs/mva/test_3_pkl/bdt_model_example.pkl", "wb"))
