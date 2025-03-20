@@ -21,8 +21,8 @@ procDict = "FCCee_procDict_winter2023_IDEA.json"
 includePaths = ["functions.h"]
 
 # Output directory
-outputDir   = f"outputs/FCCee/higgs/mva/preselection_real/"
-#outputDir   = "/eos/user/f/fdmartin/FCC365_MVA_preselection_Real_Simulations"
+#outputDir   = f"outputs/FCCee/higgs/mva/preselection_real/"
+outputDir   = "/eos/user/f/fdmartin/FCC365_MVA_preselection_Real_Simulations"
 
 # Multithreading: -1 means using all cores
 nCPUS       = -1
