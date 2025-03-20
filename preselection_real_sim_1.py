@@ -157,7 +157,9 @@ class RDFanalysis:
 
         if doInference:
             tmva_helper = TMVAHelperXGB("outputs/FCCee/higgs/mva/test_3_pkl/bdt_model_example.root", "bdt_model")
-            df = tmva_helper.run_inference(df, col_name="mva_score")
+
+            #df = tmva_helper.run_inference(df, col_name="mva_score")
+            df = df.Define("mva_score", "ROOT::VecOps::RVec<float>{0.5}")
             df = df.Define("mva_score_fixed", "(mva_score.size() > 0) ? mva_score[0] : 0.0")
             #df = df.Define("mva_score_fixed", "[](const ROOT::VecOps::RVec<float>& arr) { return arr.empty() ? 0.0f : arr[0]; }(mva_score)")
 
