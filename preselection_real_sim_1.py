@@ -148,17 +148,17 @@ class RDFanalysis:
         df = df.Define("jj_m", "JetConstituentsUtils::InvariantMass(jets_p4[0], jets_p4[1])")
         df = df.Define("missingEnergy", "FCCAnalyses::missingEnergy(365., ReconstructedParticles)")
         df = df.Define("missingEnergy_energy", "FCCAnalyses::ReconstructedParticle::get_e({missingEnergy[0]})")
-        df = df.Define("missingEnergy_energy_fixed", "missingEnergy_energy[0] if missingEnergy_energy.size() > 0 else 0.0")
+        df = df.Define("missingEnergy_energy_fixed", "(missingEnergy_energy.size() > 0) ? missingEnergy_energy[0] : 0.0")
         df = df.Define("cosTheta_miss", "FCCAnalyses::get_cosTheta_miss({missingEnergy[0]})")
         df = df.Define("missing_p", "FCCAnalyses::ReconstructedParticle::get_p({missingEnergy[0]})")
-        df = df.Define("missing_p_fixed", "missing_p[0] if missing_p.size() > 0 else 0.0")
+        df = df.Define("missing_p_fixed", "(missing_p.size() > 0) ? missing_p[0] : 0.0")
         df = df.Filter("cosTheta_miss < 0.98")
 
 
         if doInference:
             tmva_helper = TMVAHelperXGB("outputs/FCCee/higgs/mva/test_3_pkl/bdt_model_example.root", "bdt_model")
             df = tmva_helper.run_inference(df, col_name="mva_score")
-            df = df.Define("mva_score_fixed", "mva_score[0] if mva_score.size() > 0 else 0.0")
+            df = df.Define("mva_score_fixed", "(mva_score.size() > 0) ? mva_score[0] : 0.0")
             #df = df.Define("mva_score_fixed", "[](const ROOT::VecOps::RVec<float>& arr) { return arr.empty() ? 0.0f : arr[0]; }(mva_score)")
 
         return df
