@@ -18,7 +18,7 @@ plotStatUnc    = True
 
 
 
-variables = ['zmumu_recoil_m_final', 'mva_score', 'jj_m', 'cosTheta_miss', 'missingEnergy_energy_fixed', 'missing_p_fixed']
+variables = ['mva_score', 'jj_m', 'cosTheta_miss', 'missingEnergy_energy_fixed', 'missing_p_fixed']
 rebin = [1, 1] # uniform rebin per variable (optional)
 
 ###Dictonnary with the analysis name as a key, and the list of selections to be plotted for this analysis. The name of the selections should be the same than in the final selection
