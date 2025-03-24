@@ -26,8 +26,8 @@ histoList = {
     "mva_score": {"cols": ["mva_score"], "title": "MVA score", "bins": [(100, 0, 1)]},
     "jj_m": {"cols": ["jj_m"], "title": "Dijet Mass (GeV)", "bins": [(200, 0, 365)]},
     "cosTheta_miss": {"cols": ["cosTheta_miss"], "title": "cos(θ_{miss})", "bins": [(100, -1, 1)]},
-    "missingEnergy": {"cols": ["missingEnergy.energy"], "title": "Missing Energy (GeV)", "bins": [(200, 0, 365)]},
-    "missing_p": {"cols": ["missing_p"], "title": "Missing Momentum (GeV)", "bins": [(200, 0, 365)]},
+    "missingEnergy_energy_fixed": {"cols": ["missingEnergy_energy_fixed"], "title": "Missing Energy (GeV)", "bins": [(200, 0, 365)]},
+    "missing_p_fixed": {"cols": ["missing_p_fixed"], "title": "Missing Momentum (GeV)", "bins": [(200, 0, 365)]},
 }
 
 # Parámetros de escalado
@@ -71,7 +71,7 @@ def process_file(file_path, hists):
     if not fIn or fIn.IsZombie():
         print("Error abriendo:", file_path)
         return
-    tree = fIn.Get("tree")  # Ajusta el nombre del árbol según corresponda
+    tree = fIn.Get("events")  # Ajusta el nombre del árbol según corresponda
     if not tree:
         print("No se encontró el árbol 'tree' en:", file_path)
         fIn.Close()
@@ -93,11 +93,12 @@ def process_file(file_path, hists):
             if hasattr(event, "missingEnergy"):
                 # Si missingEnergy es un objeto con atributo 'energy'
                 try:
-                    hists["missingEnergy"].Fill(event.missingEnergy.energy)
+                    hists["missingEnergy
+                    "].Fill(event.missingEnergy_energy_fixed)
                 except Exception as e:
                     print("Error llenando missingEnergy:", e)
             if hasattr(event, "missing_p"):
-                hists["missing_p"].Fill(event.missing_p)
+                hists["missing_p"].Fill(event.missing_p_fixed)
     fIn.Close()
 
 def main():
