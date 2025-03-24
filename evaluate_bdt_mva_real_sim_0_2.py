@@ -8,7 +8,7 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-i", "--input", type=str, default="/eos/user/f/fdmartin/FCC365_MVA_train_realsim/train/bdt_model_example.pkl", help="Input pkl file")
-parser.add_argument("-o", "--outDir", type=str, default="/eos/user/f/fdmartin/FCC365_MVA_train_realsim/evaluate_plots_0_5", help="Output directory")
+parser.add_argument("-o", "--outDir", type=str, default="/eos/user/f/fdmartin/FCC365_MVA_train_realsim/evaluate_plots_0_2", help="Output directory")
 args = parser.parse_args()
 
 
