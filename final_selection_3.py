@@ -90,15 +90,12 @@ def process_file(file_path, hists):
                 hists["jj_m"].Fill(event.jj_m)
             if hasattr(event, "cosTheta_miss"):
                 hists["cosTheta_miss"].Fill(event.cosTheta_miss)
-            if hasattr(event, "missingEnergy"):
-                # Si missingEnergy es un objeto con atributo 'energy'
-                try:
-                    hists["missingEnergy
-                    "].Fill(event.missingEnergy_energy_fixed)
+            if hasattr(event, "missingEnergy_energy_fixed"):
+                hists["missingEnergy_energy_fixed"].Fill(event.missingEnergy_energy_fixed)
                 except Exception as e:
                     print("Error llenando missingEnergy:", e)
-            if hasattr(event, "missing_p"):
-                hists["missing_p"].Fill(event.missing_p_fixed)
+            if hasattr(event, "missing_p_fixed"):
+                hists["missing_p_fixed"].Fill(event.missing_p_fixed)
     fIn.Close()
 
 def main():
