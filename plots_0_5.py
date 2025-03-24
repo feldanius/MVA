@@ -18,16 +18,13 @@ plotStatUnc    = True
 
 
 
-variables = ['mva_score', 'jj_m', 'cosTheta_miss', 'missingEnergy_energy_fixed', 'missing_p_fixed']
-rebin = [1, 1] # uniform rebin per variable (optional)
+#variables = ['mva_score', 'jj_m', 'cosTheta_miss', 'missingEnergy_energy_fixed', 'missing_p_fixed']
+#rebin = [1, 1] # uniform rebin per variable (optional)
 
 ###Dictonnary with the analysis name as a key, and the list of selections to be plotted for this analysis. The name of the selections should be the same than in the final selection
-selections = {}
-selections['VBF']   = ["mva_score"]
-selections['ZZ']   = ["mva_score"]
-selections['WW']   = ["mva_score"]
-selections['tt']   = ["mva_score"]
-selections['ZH']   = ["mva_score"]
+#selections = {}
+#selections['VBF']   = ["mva_score"]
+
 
 colors = {}
 colors["VBF"] = ROOT.kRed
@@ -37,10 +34,9 @@ colors["tt"] = ROOT.kBlue - 2
 colors["ZH"] = ROOT.kMagenta - 8
 
 
-plots = {}
-plots['MVA'] = {'signal':{"VBF": ["wzp6_ee_nuenueH_Hbb_ecm365", "wzp6_ee_numunumuH_Hbb_ecm365"]},
-               'backgrounds':{ "ZZ": ["p8_ee_ZZ_ecm365"], "WW": ["p8_ee_WW_ecm365"], "tt": ["p8_ee_tt_ecm365"], "ZH": ["wzp6_ee_numunumuH_Hbb_ecm365"] }
-           }
+procs = {}
+procs["signal"] = {"VBF": ["wzp6_ee_nuenueH_Hbb_ecm365", "wzp6_ee_numunumuH_Hbb_ecm365_vbf"]}
+procs["backgrounds"] = { "ZZ": ["p8_ee_ZZ_ecm365"], "WW": ["p8_ee_WW_ecm365"], "tt": ["p8_ee_tt_ecm365"], "ZH": ["wzp6_ee_numunumuH_Hbb_ecm365"] }
 
 legend = {}
 legend["VBF"] = "VBF"
@@ -48,3 +44,72 @@ legend["ZZ"] = "ZZ"
 legend["WW"] = "WW"
 legend["tt"] = "tt"
 legend["ZH"] = "ZH"
+
+hists = {}
+
+hists["missingEnergy_energy_fixed (mva_score > 0.5)"] = {
+    "output": "missingEnergy_energy",
+    "logy": False,
+    "stack": True,
+    "rebin": 2,
+    "xmin": 0,
+    "xmax": 200,
+    "ymin": 0,
+    "ymax": 100,
+    "xtitle": "MET (GeV)",
+    "ytitle": "Events / 2 GeV",
+}
+
+hists["missing_p_fixed (mva_score > 0.5)"] = {
+    "output": "missing_p",
+    "logy": False,
+    "stack": True,
+    "rebin": 2,
+    "xmin": 15,
+    "xmax": 170,
+    "ymin": 0,
+    "ymax": 2000,
+    "xtitle": "Missing_p (GeV)",
+    "ytitle": "Events / 2 GeV",
+}
+
+hists["jj_m (mva_score > 0.5)"] = {
+    "output": "jj_m",
+    "logy": False,
+    "stack": True,
+    "rebin": 2,
+    "xmin": 95,
+    "xmax": 155,
+    "ymin": 0,
+    "ymax": 20000,
+    "xtitle": "m_{jj} (GeV)",
+    "ytitle": "Events / 2 GeV",
+}
+
+
+hists["mva_score > 0.5"] = {
+    "output": "mva_score > 0.5",
+    "logy": True,
+    "stack": True,
+    "rebin": 1,
+    "xmin": 0,
+    "xmax": 1.0,
+    "ymin": 1,
+    "ymax": 5000000000,
+    "xtitle": "mva_score",
+    "ytitle": "Events",
+}
+
+
+hists["cosTheta_miss (mva_score > 0.5)"] = {
+    "output": "cosTheta_miss",
+    "logy": False,
+    "stack": True,
+    "rebin": 1,
+    "xmin": 0,
+    "xmax": 1.0,
+    "ymin": 0,
+    "ymax": 1000,
+    "xtitle": "cosTheta_miss",
+    "ytitle": "Events",
+}
