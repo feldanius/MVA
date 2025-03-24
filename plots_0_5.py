@@ -47,7 +47,7 @@ legend["ZH"] = "ZH"
 
 hists = {}
 
-hists["missingEnergy_energy_fixed (mva_score > 0.5)"] = {
+hists["missingEnergy_energy_fixed"] = {
     "output": "missingEnergy_energy",
     "logy": False,
     "stack": True,
@@ -60,7 +60,7 @@ hists["missingEnergy_energy_fixed (mva_score > 0.5)"] = {
     "ytitle": "Events / 2 GeV",
 }
 
-hists["missing_p_fixed (mva_score > 0.5)"] = {
+hists["missing_p_fixed"] = {
     "output": "missing_p",
     "logy": False,
     "stack": True,
@@ -73,7 +73,7 @@ hists["missing_p_fixed (mva_score > 0.5)"] = {
     "ytitle": "Events / 2 GeV",
 }
 
-hists["jj_m (mva_score > 0.5)"] = {
+hists["jj_m"] = {
     "output": "jj_m",
     "logy": False,
     "stack": True,
@@ -87,8 +87,8 @@ hists["jj_m (mva_score > 0.5)"] = {
 }
 
 
-hists["mva_score > 0.5"] = {
-    "output": "mva_score > 0.5",
+hists["mva_score"] = {
+    "output": "mva_score",
     "logy": True,
     "stack": True,
     "rebin": 1,
