@@ -8,7 +8,7 @@ ana_tex        = '(VBF) e^{+}e^{-} #nu^{+}#nu^{-} H #rightarrow #b^{+}#b^{-}'
 delphesVersion = '3.4.2'
 energy         = 365.0
 collider       = 'FCC-ee'
-inputDir       = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim/final_selection"
+inputDir       = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim/final_selection/mva_0_5"
 formats        = ['png','pdf']
 outdir         = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim/final_selection/plots_0_5"
 yaxis          = ['lin','log']
@@ -47,7 +47,7 @@ legend["ZH"] = "ZH"
 
 hists = {}
 
-hists["missingEnergy_energy_fixed"] = {
+hists["missingEnergy_energy_fixed (mva_score > 0.5)"] = {
     "output": "missingEnergy_energy",
     "logy": False,
     "stack": True,
@@ -60,7 +60,7 @@ hists["missingEnergy_energy_fixed"] = {
     "ytitle": "Events / 2 GeV",
 }
 
-hists["missing_p_fixed"] = {
+hists["missing_p_fixed (mva_score > 0.5)"] = {
     "output": "missing_p",
     "logy": False,
     "stack": True,
@@ -73,7 +73,7 @@ hists["missing_p_fixed"] = {
     "ytitle": "Events / 2 GeV",
 }
 
-hists["jj_m"] = {
+hists["jj_m (mva_score > 0.5)"] = {
     "output": "jj_m",
     "logy": False,
     "stack": True,
@@ -87,7 +87,7 @@ hists["jj_m"] = {
 }
 
 
-hists["mva_score"] = {
+hists["mva_score >0.5"] = {
     "output": "mva_score",
     "logy": True,
     "stack": True,
