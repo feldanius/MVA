@@ -22,7 +22,7 @@ includePaths = ["functions.h"]
 
 # Output directory
 #outputDir   = f"outputs/FCCee/higgs/mva/preselection_real/"
-outputDir   = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim/preselection_total_with_inference"
+outputDir   = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim/preselection_total_with_inference_previous"
 
 # Multithreading: -1 means using all cores
 nCPUS       = -1
