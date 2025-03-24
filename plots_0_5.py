@@ -23,11 +23,11 @@ rebin = [1, 1] # uniform rebin per variable (optional)
 
 ###Dictonnary with the analysis name as a key, and the list of selections to be plotted for this analysis. The name of the selections should be the same than in the final selection
 selections = {}
-selections['VBF']   = ["sel0", "sel1"]
-
-extralabel = {}
-extralabel['sel0'] = "Basic selection"
-extralabel['sel1'] = "MVA > 0.5"
+selections['VBF']   = ["mva_score"]
+selections['ZZ']   = ["mva_score"]
+selections['WW']   = ["mva_score"]
+selections['tt']   = ["mva_score"]
+selections['ZH']   = ["mva_score"]
 
 colors = {}
 colors["VBF"] = ROOT.kRed
@@ -38,7 +38,7 @@ colors["ZH"] = ROOT.kMagenta - 8
 
 
 plots = {}
-plots['ZH'] = {'signal':{"VBF": ["wzp6_ee_nuenueH_Hbb_ecm365", "wzp6_ee_numunumuH_Hbb_ecm365"]},
+plots['MVA'] = {'signal':{"VBF": ["wzp6_ee_nuenueH_Hbb_ecm365", "wzp6_ee_numunumuH_Hbb_ecm365"]},
                'backgrounds':{ "ZZ": ["p8_ee_ZZ_ecm365"], "WW": ["p8_ee_WW_ecm365"], "tt": ["p8_ee_tt_ecm365"], "ZH": ["wzp6_ee_numunumuH_Hbb_ecm365"] }
            }
 
