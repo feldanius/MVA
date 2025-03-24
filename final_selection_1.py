@@ -1,14 +1,21 @@
 
 
 #Input directory where the files produced at the pre-selection level are
-inputDir   = f"outputs/FCCee/higgs/mva/preselection/"
+#inputDir   = f"outputs/FCCee/higgs/mva/preselection/"
+inputDir   ="/eos/user/f/fdmartin/FCC365_MVA_train_realsim/preselection_total_with_inference_previous"
 
 #Input directory where the files produced at the pre-selection level are
 #Optional: output directory, default is local running directory
-outputDir   = f"outputs/FCCee/higgs/mva/final_selection/"
+outputDir   = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim/final_selection"
 
 # if no processList or empty dictionary provided, run over all ROOT files in the input directory
-processList = {}
+processList = {
+    'p8_ee_WW_ecm365': {'fraction': 1},
+    'wzp6_ee_numunumuH_Hbb_ecm365': {'fraction': 1},
+    'wzp6_ee_nuenueH_Hbb_ecm365':  {'fraction': 1},
+    'p8_ee_ZZ_ecm365': {'fraction': 1},
+    'p8_ee_tt_ecm365': {'fraction': 1},
+}
 
 #Link to the dictonary that contains all the cross section informations etc...
 procDict = "FCCee_procDict_winter2023_IDEA.json"
