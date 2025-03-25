@@ -44,7 +44,7 @@ python evaluate_bdt.py -i outputs/FCCee/higgs/mva/bdt_model_example.pkl -o outpu
 
 In order to run the plot.py I have to run the following lines:
 ```bash
-python plot.py 
+python final_selection.py 
 ``` 
 
 ## SCP
