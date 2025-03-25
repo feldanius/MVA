@@ -16,7 +16,7 @@ outdir         = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim/plots/plots_0_5_
 #outdir         = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim/plots/plots_0_2_non_stack_signal"
 #outdir         = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim/plots/plots_no_mva_cut_non_stack_signal"
 yaxis          = ['lin','log']
-#stacksig       = ['nostack']
+stacksig       = ['stack']
 plotStatUnc    = True
 
 colors = {}
