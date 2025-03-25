@@ -4,13 +4,17 @@ import ROOT
 # global parameters
 intLumi        = 1.
 intLumiLabel   = "L = 3 ab^{-1}"
-ana_tex        = '(VBF) e^{+}e^{-} #nu^{+}#nu^{-} H #rightarrow #b^{+}#b^{-}'
+ana_tex        = '(VBF) e^{+}e^{-} #nu^{+}#nu^{-} H #rightarrow b^{+} b^{-} (MVA > 0.5)'
 delphesVersion = '3.4.2'
 energy         = 365.0
 collider       = 'FCC-ee'
 inputDir       = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim/final_selection/mva_0_5"
+#inputDir       = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim/final_selection/mva_0_2"
+#inputDir       = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim/final_selection/mva_total"
 formats        = ['png','pdf']
-outdir         = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim/final_selection/plots_0_5"
+outdir         = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim/plots/plots_0_5"
+#outdir         = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim/plots/plots_0_2"
+#outdir         = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim/plots/plots_no_mva_cut"
 yaxis          = ['lin','log']
 stacksig       = ['nostack']
 plotStatUnc    = True
@@ -52,10 +56,10 @@ hists["missingEnergy_energy_fixed"] = {
     "logy": False,
     "stack": True,
     "rebin": 2,
-    "xmin": 50,
-    "xmax": 365,
+    "xmin": 140,
+    "xmax": 330,
     "ymin": 0,
-    "ymax": 400000,
+    "ymax": 550000,
     "xtitle": "MET (GeV)",
     "ytitle": "Events / 2 GeV",
 }
@@ -66,7 +70,7 @@ hists["missing_p_fixed"] = {
     "stack": True,
     "rebin": 2,
     "xmin": 0,
-    "xmax": 250,
+    "xmax": 180,
     "ymin": 0,
     "ymax": 650000,
     "xtitle": "Missing_p (GeV)",
@@ -78,10 +82,10 @@ hists["jj_m"] = {
     "logy": False,
     "stack": True,
     "rebin": 2,
-    "xmin": 0,
-    "xmax": 250,
+    "xmin": 20,
+    "xmax": 150,
     "ymin": 0,
-    "ymax": 800000,
+    "ymax": 500000,
     "xtitle": "m_{jj} (GeV)",
     "ytitle": "Events / 2 GeV",
 }
@@ -92,10 +96,10 @@ hists["mva_score"] = {
     "logy": True,
     "stack": True,
     "rebin": 1,
-    "xmin": 0.2,
+    "xmin": 0.5,
     "xmax": 1,
     "ymin": 1,
-    "ymax": 500000,
+    "ymax": 620000,
     "xtitle": "mva_score",
     "ytitle": "Events",
 }
@@ -109,7 +113,7 @@ hists["cosTheta_miss"] = {
     "xmin": 0,
     "xmax": 1.0,
     "ymin": 0,
-    "ymax": 500000,
+    "ymax": 200000,
     "xtitle": "cosTheta_miss",
     "ytitle": "Events",
 }
