@@ -40,6 +40,11 @@ fccanalysis plots plots.py
 In order to run the evaluate_bdt.py I have to run the following lines:
 ```bash
 python evaluate_bdt.py -i outputs/FCCee/higgs/mva/bdt_model_example.pkl -o outputs/FCCee/higgs/mva/plots_training
+```
+
+In order to run the plot.py I have to run the following lines:
+```bash
+python plot.py 
 ``` 
 
 ## SCP
