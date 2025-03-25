@@ -4,7 +4,7 @@ import ROOT
 # global parameters
 intLumi        = 1.
 intLumiLabel   = "L = 3 ab^{-1}"
-ana_tex        = '(VBF) e^{+}e^{-} #nu^{+}#nu^{-} H #rightarrow b^{+} b^{-} (MVA > 0.5)'
+ana_tex        = '(VBF) e^{+}e^{-} #nu^{+}#nu^{-} H #rightarrow b^{+} b^{-}'
 delphesVersion = '3.4.2'
 energy         = 365.0
 collider       = 'FCC-ee'
