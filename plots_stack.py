@@ -99,7 +99,7 @@ hists["mva_score"] = {
     "xmin": 0.5,
     "xmax": 1,
     "ymin": 1,
-    "ymax": 1500000,
+    "ymax": 7500000,
     "xtitle": "mva_score",
     "ytitle": "Events",
 }
