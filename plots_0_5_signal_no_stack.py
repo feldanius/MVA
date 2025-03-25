@@ -16,10 +16,12 @@ outdir         = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim/plots/plots_0_5_
 #outdir         = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim/plots/plots_0_2_non_stack_signal"
 #outdir         = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim/plots/plots_no_mva_cut_non_stack_signal"
 yaxis          = ['lin','log']
-stacksig       = ['nostack']
+#stacksig       = ['nostack']
 plotStatUnc    = True
 
 colors = {}
+#colors["Signal VBF"] = ROOT.kRed
+#colors["Backgrounds"] = ROOT.kGreen + 2
 colors["VBF"] = ROOT.kRed
 colors["ZZ"] = ROOT.kGreen + 2
 colors["WW"] = ROOT.kCyan - 2
@@ -28,10 +30,14 @@ colors["ZH"] = ROOT.kMagenta - 8
 
 
 procs = {}
-procs["signal"] = {"VBF": ["wzp6_ee_nuenueH_Hbb_ecm365", "wzp6_ee_numunumuH_Hbb_ecm365"]}
+procs["VBF"] = {"VBF": ["wzp6_ee_nuenueH_Hbb_ecm365", "wzp6_ee_numunumuH_Hbb_ecm365"]}
+#procs["Signal VBF"] = {"Signal VBF": ["wzp6_ee_nuenueH_Hbb_ecm365", "wzp6_ee_numunumuH_Hbb_ecm365"]}
 procs["backgrounds"] = { "ZZ": ["p8_ee_ZZ_ecm365"], "WW": ["p8_ee_WW_ecm365"], "tt": ["p8_ee_tt_ecm365"], "ZH": ["wzp6_ee_numunumuH_Hbb_ecm365"] }
+#procs["Backgrounds"] = { "Backgrounds": ["p8_ee_ZZ_ecm365", "p8_ee_WW_ecm365", "p8_ee_tt_ecm365", "wzp6_ee_numunumuH_Hbb_ecm365"] }
 
 legend = {}
+#legend["Signal VBF"] = "Signal VBF"
+#legend["Backgrounds"] = "Backgrounds"
 legend["VBF"] = "VBF"
 legend["ZZ"] = "ZZ"
 legend["WW"] = "WW"
@@ -44,7 +50,7 @@ hists["missingEnergy_energy_fixed"] = {
     "output": "missingEnergy_energy_fixed",
     "logy": False,
     "stack": True,
-    "stack_signal": False,
+    #"stack_signal": False,
     "rebin": 2,
     "xmin": 130,
     "xmax": 350,
@@ -58,7 +64,7 @@ hists["missing_p_fixed"] = {
     "output": "missing_p_fixed",
     "logy": False,
     "stack": True,
-    "stack_signal": False,
+    #"stack_signal": False,
     "rebin": 2,
     "xmin": 0,
     "xmax": 190,
@@ -72,7 +78,7 @@ hists["jj_m"] = {
     "output": "jj_m",
     "logy": False,
     "stack": True,
-    "stack_signal": False,
+    #"stack_signal": False,
     "rebin": 2,
     "xmin": 0,
     "xmax": 250,
@@ -87,7 +93,7 @@ hists["mva_score"] = {
     "output": "mva_score",
     "logy": True,
     "stack": True,
-    "stack_signal": False,
+    #"stack_signal": False,
     "rebin": 1,
     "xmin": 0.5,
     "xmax": 1,
@@ -102,7 +108,7 @@ hists["cosTheta_miss"] = {
     "output": "cosTheta_miss",
     "logy": False,
     "stack": True,
-    "stack_signal": False,
+    #"stack_signal": False,
     "rebin": 1,
     "xmin": 0,
     "xmax": 1.0,
