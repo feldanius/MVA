@@ -16,7 +16,7 @@ outdir         = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim/plots/plots_0_5_
 #outdir         = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim/plots/plots_0_2_non_stack_signal"
 #outdir         = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim/plots/plots_no_mva_cut_non_stack_signal"
 yaxis          = ['lin','log']
-stacksig       = ['stack']
+#stacksig       = ['nostack']
 plotStatUnc    = True
 
 colors = {}
@@ -30,7 +30,7 @@ colors["ZH"] = ROOT.kMagenta - 8
 
 
 procs = {}
-procs["VBF"] = {"VBF": ["wzp6_ee_nuenueH_Hbb_ecm365", "wzp6_ee_numunumuH_Hbb_ecm365"]}
+procs["signal"] = {"VBF": ["wzp6_ee_nuenueH_Hbb_ecm365", "wzp6_ee_numunumuH_Hbb_ecm365"]}
 #procs["Signal VBF"] = {"Signal VBF": ["wzp6_ee_nuenueH_Hbb_ecm365", "wzp6_ee_numunumuH_Hbb_ecm365"]}
 procs["backgrounds"] = { "ZZ": ["p8_ee_ZZ_ecm365"], "WW": ["p8_ee_WW_ecm365"], "tt": ["p8_ee_tt_ecm365"], "ZH": ["wzp6_ee_numunumuH_Hbb_ecm365"] }
 #procs["Backgrounds"] = { "Backgrounds": ["p8_ee_ZZ_ecm365", "p8_ee_WW_ecm365", "p8_ee_tt_ecm365", "wzp6_ee_numunumuH_Hbb_ecm365"] }
