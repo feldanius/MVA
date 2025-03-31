@@ -138,19 +138,19 @@ class RDFanalysis:
         jetClusteringHelper = ExclusiveJetClusteringHelper(collections_noleptons_and_photons["PFParticles"], 2)
         df = jetClusteringHelper.define(df)
 
-        
         jetFlavourHelper = JetFlavourHelper(collections_noleptons_and_photons, jetClusteringHelper.jets, jetClusteringHelper.constituents)
         df = jetFlavourHelper.define(df)
         df = jetFlavourHelper.inference(weaver_preproc, weaver_model, df)
 
-        df = df.Define("jets_reco", "FCCAnalyses::JetConstituentsUtils::build_reco_particles({}, {})".format(jetClusteringHelper.jets, jetClusteringHelper.constituents))
+        #df = df.Define("jets_reco", "FCCAnalyses::JetConstituentsUtils::build_reco_particles({}, {})".format(jetClusteringHelper.jets, jetClusteringHelper.constituents))
 
-        #df = df.Filter("event_njet == 2")
-        #df = df.Define("jets_p4", "JetConstituentsUtils::compute_tlv_jets({})".format(jetClusteringHelper.jets))
-        #df = df.Define("jj_m", "JetConstituentsUtils::InvariantMass(jets_p4[0], jets_p4[1])")
+        df = df.Filter("event_njet == 2")
+        df = df.Define("jets_p4", "JetConstituentsUtils::compute_tlv_jets({})".format(jetClusteringHelper.jets))
+        df = df.Define("scoresum_B", "recojet_isB[0] + recojet_isB[1]")
+        df = df.Filter("scoresum_B > 1.0")
+        df = df.Define("jj_m", "JetConstituentsUtils::InvariantMass(jets_p4[0], jets_p4[1])")
+        df = df.Filter("jj_m > 95 && jj_m < 155")
       ###########################BTagging####################################
-        #df = df.Define("scoresum_B", "recojet_isB[0] + recojet_isB[1]")
-        #df = df.Filter("scoresum_B > 1.0")
         ####df = df.Define("bjets_mask", "scoresum_B > 1.0")
         #df = df.Define("bjets_mask", "recojet_isB[0] > 0.7 && recojet_isB[1] > 0.7") 
         #####df = df.Define("bjets", "FCCAnalyses::ReconstructedParticle::sel_indices(bjets_mask)(jets)")
@@ -162,30 +162,30 @@ class RDFanalysis:
         #df = df.Define("jets", f"{jetClusteringHelper.jets}")  # Jet objects
 
  # B-tagging selection
-        df = df.Filter("recojet_isB.size() == 2", "Exactamente 2 scores B-tag")
-        df = df.Define("bjets_mask", "recojet_isB[0] > 0.7 && recojet_isB[1] > 0.7")
-        df = df.Filter("Sum(bjets_mask) == 2", "2 b-jets")
+        #df = df.Filter("recojet_isB.size() == 2", "Exactamente 2 scores B-tag")
+        #df = df.Define("bjets_mask", "recojet_isB[0] > 0.7 && recojet_isB[1] > 0.7")
+        #df = df.Filter("Sum(bjets_mask) == 2", "2 b-jets")
         
         
 
         #df = df.Filter("bjets_mask.size() == 2 && Sum(bjets_mask) == 2", "Exactly two b-jets")
         
         # Kinemática de los jets
-        df = df.Define("jets_p4", f"JetConstituentsUtils::compute_tlv_jets({jetClusteringHelper.jets})")
-        df = df.Define("jj_m", "JetConstituentsUtils::InvariantMass(jets_p4[0], jets_p4[1])")
-        df = df.Filter("jj_m > 95 && jj_m < 155", "Masa dijet en ventana del Higgs")
+        #df = df.Define("jets_p4", f"JetConstituentsUtils::compute_tlv_jets({jetClusteringHelper.jets})")
+        #df = df.Define("jj_m", "JetConstituentsUtils::InvariantMass(jets_p4[0], jets_p4[1])")
+
         
         # Reconstrucción del Higgs
-        df = df.Define("hbb", "ReconstructedParticle::resonanceBuilder(125)(jets_reco[bjets_mask])")
-        df = df.Define("hbb_p4", "ReconstructedParticle::get_tlv(hbb)")
-        df = df.Define("hbb_m", "hbb_p4.size() > 0 ? (float)hbb_p4[0].M() : -1.0f")
+        #df = df.Define("hbb", "ReconstructedParticle::resonanceBuilder(125)(jets_reco[bjets_mask])")
+        #df = df.Define("hbb_p4", "ReconstructedParticle::get_tlv(hbb)")
+        #df = df.Define("hbb_m", "hbb_p4.size() > 0 ? (float)hbb_p4[0].M() : -1.0f")
 
         #df = df.Define("hbb_pt", "hbb_p4.size() > 0 ? (float)hbb_p4[0].Pt() : -1.0f")
         
         # Cálculo del recoil
-        df = df.Define("higgs_recoil", "ReconstructedParticle::recoilBuilder(365)(hbb)")
-        df = df.Define("higgs_recoil_p4", "ReconstructedParticle::get_tlv(higgs_recoil)")
-        df = df.Define("higgs_recoil_m", "higgs_recoil_p4.size() > 0 ? (float)higgs_recoil_p4[0].M() : -1.0f")
+        #df = df.Define("higgs_recoil", "ReconstructedParticle::recoilBuilder(365)(hbb)")
+        #df = df.Define("higgs_recoil_p4", "ReconstructedParticle::get_tlv(higgs_recoil)")
+        #df = df.Define("higgs_recoil_m", "higgs_recoil_p4.size() > 0 ? (float)higgs_recoil_p4[0].M() : -1.0f")
 
         
         df = df.Define("missingEnergy", "FCCAnalyses::missingEnergy(365., ReconstructedParticles)")
@@ -200,10 +200,11 @@ class RDFanalysis:
       ###########################Recoil####################################
       
         #df = df.Define("hbb", "ReconstructedParticle::resonanceBuilder(125)(bjets)")
-        #df = df.Define("hbb_m", "ReconstructedParticle::get_mass(hbb)[0]")
-        #df = df.Define("hbb_p", "ReconstructedParticle::get_p(hbb)[0]")
-        #df = df.Define("higgs_recoil", "ReconstructedParticle::recoilBuilder(365)(hbb)")
-        #df = df.Define("higgs_recoil_m", "ReconstructedParticle::get_mass(higgs_recoil)[0]")
+        df = df.Define("hbb", "ReconstructedParticle::resonanceBuilder(125)({})".format(jetClusteringHelper.jets))
+        df = df.Define("hbb_m", "ReconstructedParticle::get_mass(hbb)[0]")
+        df = df.Define("hbb_p", "ReconstructedParticle::get_p(hbb)[0]")
+        df = df.Define("higgs_recoil", "ReconstructedParticle::recoilBuilder(365)(hbb)")
+        df = df.Define("higgs_recoil_m", "ReconstructedParticle::get_mass(higgs_recoil)[0]")
 
         if doInference:
             tmva_helper = TMVAHelperXGB("/eos/user/f/fdmartin/FCC365_MVA_train_realsim/train/bdt_model_example.root", "bdt_model")
@@ -216,7 +217,7 @@ class RDFanalysis:
         return df
 
     def output():
-        branchList = ["jj_m", "hbb_m", "higgs_recoil_m", "cosTheta_miss", "missingEnergy_energy_fixed", "missing_p_fixed", "hbb_p4" ]
+        branchList = ["jj_m", "hbb_m", "higgs_recoil_m", "cosTheta_miss", "missingEnergy_energy_fixed", "missing_p_fixed", "hbb_p", "higgs_recoil" ]
         if doInference:
             branchList.append("mva_score_fixed")
         return branchList
