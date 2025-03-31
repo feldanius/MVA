@@ -149,8 +149,9 @@ class RDFanalysis:
       ###########################BTagging####################################
         df = df.Define("scoresum_B", "recojet_isB[0] + recojet_isB[1]")
         df = df.Filter("scoresum_B > 1.0")
-        df = df.Define("bjets_mask", "scoresum_B > 1.0")
-       # df = df.Define("bjets_mask", "recojet_isB > 0.7") 
+        #df = df.Define("bjets_mask", "scoresum_B > 1.0")
+        df = df.Define("bjets_mask", "recojet_isB[0] > 0.7 && recojet_isB[1] > 0.7") 
+        #df = df.Define("bjets", "FCCAnalyses::ReconstructedParticle::sel_indices(bjets_mask)(jets)")
         df = df.Define("bjets", "jets_p4[bjets_mask]")
         df = df.Filter("bjets.size() == 2", "two b-jets")
 
