@@ -143,6 +143,8 @@ class RDFanalysis:
         df = jetFlavourHelper.define(df)
         df = jetFlavourHelper.inference(weaver_preproc, weaver_model, df)
 
+        df = df.Define("jets_reco", "FCCAnalyses::JetConstituentsUtils::build_reco_particles({}, {})".format(jetClusteringHelper.jets, jetClusteringHelper.constituents))
+
         #df = df.Filter("event_njet == 2")
         #df = df.Define("jets_p4", "JetConstituentsUtils::compute_tlv_jets({})".format(jetClusteringHelper.jets))
         #df = df.Define("jj_m", "JetConstituentsUtils::InvariantMass(jets_p4[0], jets_p4[1])")
@@ -160,9 +162,11 @@ class RDFanalysis:
         #df = df.Define("jets", f"{jetClusteringHelper.jets}")  # Jet objects
 
  # B-tagging selection
-        df = df.Filter(f"{jetClusteringHelper.jets}.size() == 2", "two jets events")
-        df = df.Define("bjets_mask", "ROOT::VecOps::RVec<bool>{recojet_isB[0] > 0.7, recojet_isB[1] > 0.7}")
-        df = df.Filter("Sum(bjets_mask) == 2", " two b-jets")
+        df = df.Filter("recojet_isB.size() == 2", "Exactamente 2 scores B-tag")
+            .Define("bjets_mask", "recojet_isB[0] > 0.7 && recojet_isB[1] > 0.7")
+            .Filter("Sum(bjets_mask) == 2", "2 b-jets")
+        
+        
 
         #df = df.Filter("bjets_mask.size() == 2 && Sum(bjets_mask) == 2", "Exactly two b-jets")
         
@@ -172,9 +176,10 @@ class RDFanalysis:
         df = df.Filter("jj_m > 95 && jj_m < 155", "Masa dijet en ventana del Higgs")
         
         # Reconstrucción del Higgs
-        df = df.Define("hbb", "ReconstructedParticle::resonanceBuilder(125)({})".format(jetClusteringHelper.jets + "[bjets_mask]"))
-        df = df.Define("hbb_p4", "ReconstructedParticle::get_tlv(hbb)")
-        df = df.Define("hbb_m", "hbb_p4.size() > 0 ? (float)hbb_p4[0].M() : -1.0f")
+        df = df.Define("hbb", "ReconstructedParticle::resonanceBuilder(125)(jets_reco[bjets_mask])")
+            .Define("hbb_p4", "ReconstructedParticle::get_tlv(hbb)")
+            .Define("hbb_m", "hbb_p4.size() > 0 ? (float)hbb_p4[0].M() : -1.0f")
+
         #df = df.Define("hbb_pt", "hbb_p4.size() > 0 ? (float)hbb_p4[0].Pt() : -1.0f")
         
         # Cálculo del recoil
