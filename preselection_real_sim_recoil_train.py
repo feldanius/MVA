@@ -138,8 +138,6 @@ class RDFanalysis:
         jetClusteringHelper = ExclusiveJetClusteringHelper(collections_noleptons_and_photons["PFParticles"], 2)
         df = jetClusteringHelper.define(df)
 
-        df = df.Define("jets_reco", f"JetConstituentsUtils::get_reco_particles({jetClusteringHelper.jets}, {jetClusteringHelper.constituents})")
-
         
         jetFlavourHelper = JetFlavourHelper(collections_noleptons_and_photons, jetClusteringHelper.jets, jetClusteringHelper.constituents)
         df = jetFlavourHelper.define(df)
@@ -158,12 +156,15 @@ class RDFanalysis:
         #df = df.Filter("bjets.size() == 2", "two b-jets")
 
         #df = df.Filter("event_njet == 2")    
-        df = df.Filter(f"{jetClusteringHelper.jets}.size() == 2", "two jets events")
+        
         #df = df.Define("jets", f"{jetClusteringHelper.jets}")  # Jet objects
 
  # B-tagging selection
+        df = df.Filter(f"{jetClusteringHelper.jets}.size() == 2", "two jets events")
         df = df.Define("bjets_mask", "ROOT::VecOps::RVec<bool>{recojet_isB[0] > 0.7, recojet_isB[1] > 0.7}")
-        df = df.Filter("bjets_mask.size() == 2 && Sum(bjets_mask) == 2", "Exactly two b-jets")
+        df = df.Filter("Sum(bjets_mask) == 2", " two b-jets")
+
+        #df = df.Filter("bjets_mask.size() == 2 && Sum(bjets_mask) == 2", "Exactly two b-jets")
         
         # Kinemática de los jets
         df = df.Define("jets_p4", f"JetConstituentsUtils::compute_tlv_jets({jetClusteringHelper.jets})")
@@ -171,10 +172,10 @@ class RDFanalysis:
         df = df.Filter("jj_m > 95 && jj_m < 155", "Masa dijet en ventana del Higgs")
         
         # Reconstrucción del Higgs
-        df = df.Define("hbb", "ReconstructedParticle::resonanceBuilder(125)(jets_reco[bjets_mask])")
+        df = df.Define("hbb", "ReconstructedParticle::resonanceBuilder(125)({})".format(jetClusteringHelper.jets + "[bjets_mask]"))
         df = df.Define("hbb_p4", "ReconstructedParticle::get_tlv(hbb)")
         df = df.Define("hbb_m", "hbb_p4.size() > 0 ? (float)hbb_p4[0].M() : -1.0f")
-        df = df.Define("hbb_pt", "hbb_p4.size() > 0 ? (float)hbb_p4[0].Pt() : -1.0f")
+        #df = df.Define("hbb_pt", "hbb_p4.size() > 0 ? (float)hbb_p4[0].Pt() : -1.0f")
         
         # Cálculo del recoil
         df = df.Define("higgs_recoil", "ReconstructedParticle::recoilBuilder(365)(hbb)")
@@ -210,7 +211,7 @@ class RDFanalysis:
         return df
 
     def output():
-        branchList = ["jj_m", "hbb_m", "higgs_recoil_m", "cosTheta_miss", "missingEnergy_energy_fixed", "missing_p_fixed", "hbb_pt", "recojet_isB" ]
+        branchList = ["jj_m", "hbb_m", "higgs_recoil_m", "cosTheta_miss", "missingEnergy_energy_fixed", "missing_p_fixed", "hbb_p4" ]
         if doInference:
             branchList.append("mva_score_fixed")
         return branchList
