@@ -143,17 +143,40 @@ class RDFanalysis:
         df = jetFlavourHelper.define(df)
         df = jetFlavourHelper.inference(weaver_preproc, weaver_model, df)
 
-        df = df.Filter("event_njet == 2")    
-        df = df.Define("jets_p4", "JetConstituentsUtils::compute_tlv_jets({})".format(jetClusteringHelper.jets))
-        df = df.Define("jj_m", "JetConstituentsUtils::InvariantMass(jets_p4[0], jets_p4[1])")
+        #df = df.Filter("event_njet == 2")
+        #df = df.Define("jets_p4", "JetConstituentsUtils::compute_tlv_jets({})".format(jetClusteringHelper.jets))
+        #df = df.Define("jj_m", "JetConstituentsUtils::InvariantMass(jets_p4[0], jets_p4[1])")
       ###########################BTagging####################################
-        df = df.Define("scoresum_B", "recojet_isB[0] + recojet_isB[1]")
-        df = df.Filter("scoresum_B > 1.0")
-        #df = df.Define("bjets_mask", "scoresum_B > 1.0")
-        df = df.Define("bjets_mask", "recojet_isB[0] > 0.7 && recojet_isB[1] > 0.7") 
-        #df = df.Define("bjets", "FCCAnalyses::ReconstructedParticle::sel_indices(bjets_mask)(jets)")
-        df = df.Define("bjets", "jets_p4[bjets_mask]")
-        df = df.Filter("bjets.size() == 2", "two b-jets")
+        #df = df.Define("scoresum_B", "recojet_isB[0] + recojet_isB[1]")
+        #df = df.Filter("scoresum_B > 1.0")
+        ####df = df.Define("bjets_mask", "scoresum_B > 1.0")
+        #df = df.Define("bjets_mask", "recojet_isB[0] > 0.7 && recojet_isB[1] > 0.7") 
+        #####df = df.Define("bjets", "FCCAnalyses::ReconstructedParticle::sel_indices(bjets_mask)(jets)")
+        #df = df.Define("bjets", "jets_p4[bjets_mask]")
+        #df = df.Filter("bjets.size() == 2", "two b-jets")
+
+        df = df.Filter("event_njet == 2")    
+        df = df.Define("jets", f"{jetClusteringHelper.jets}")  # Jet objects
+
+# B-tagging selection
+        df = df.Define("bjets_mask", "recojet_isB[0] > 0.7 && recojet_isB[1] > 0.7")
+        df = df.Define("bjets", "FCCAnalyses::ReconstructedParticle::sel_indices(bjets_mask)(jets)")
+        df = df.Filter("bjets.size() == 2")
+
+# Jet kinematics
+        df = df.Define("jets_p4", "JetConstituentsUtils::compute_tlv_jets(jets)")
+        df = df.Define("jj_m", "JetConstituentsUtils::InvariantMass(jets_p4[0], jets_p4[1])")
+        df = df.Filter("jj_m > 95 && jj_m < 155")
+
+# Higgs reconstruction
+        df = df.Define("hbb", "ReconstructedParticle::resonanceBuilder(125)(bjets)")
+        df = df.Define("hbb_p4", "ReconstructedParticle::get_tlv(hbb)")
+        df = df.Define("hbb_m", "hbb_p4.size() > 0 ? hbb_p4[0].M() : -1")
+
+# Recoil calculation
+        df = df.Define("higgs_recoil", "ReconstructedParticle::recoilBuilder(365)(hbb)")
+        df = df.Define("higgs_recoil_p4", "ReconstructedParticle::get_tlv(higgs_recoil)")
+        df = df.Define("higgs_recoil_m", "higgs_recoil_p4.size() > 0 ? higgs_recoil_p4[0].M() : -1")
 
         
         df = df.Define("missingEnergy", "FCCAnalyses::missingEnergy(365., ReconstructedParticles)")
@@ -163,15 +186,15 @@ class RDFanalysis:
         df = df.Define("missing_p", "FCCAnalyses::ReconstructedParticle::get_p({missingEnergy[0]})")
         df = df.Define("missing_p_fixed", "(missing_p.size() > 0) ? missing_p[0] : 0.0")
         df = df.Filter("cosTheta_miss < 0.98")
-        df = df.Filter("jj_m > 95 && jj_m < 155")
+        #df = df.Filter("jj_m > 95 && jj_m < 155")
 
       ###########################Recoil####################################
       
-        df = df.Define("hbb", "ReconstructedParticle::resonanceBuilder(125)(bjets)")
-        df = df.Define("hbb_m", "ReconstructedParticle::get_mass(hbb)[0]")
-        df = df.Define("hbb_p", "ReconstructedParticle::get_p(hbb)[0]")
-        df = df.Define("higgs_recoil", "ReconstructedParticle::recoilBuilder(365)(hbb)")
-        df = df.Define("higgs_recoil_m", "ReconstructedParticle::get_mass(higgs_recoil)[0]")
+        #df = df.Define("hbb", "ReconstructedParticle::resonanceBuilder(125)(bjets)")
+        #df = df.Define("hbb_m", "ReconstructedParticle::get_mass(hbb)[0]")
+        #df = df.Define("hbb_p", "ReconstructedParticle::get_p(hbb)[0]")
+        #df = df.Define("higgs_recoil", "ReconstructedParticle::recoilBuilder(365)(hbb)")
+        #df = df.Define("higgs_recoil_m", "ReconstructedParticle::get_mass(higgs_recoil)[0]")
 
         if doInference:
             tmva_helper = TMVAHelperXGB("/eos/user/f/fdmartin/FCC365_MVA_train_realsim/train/bdt_model_example.root", "bdt_model")
@@ -184,7 +207,7 @@ class RDFanalysis:
         return df
 
     def output():
-        branchList = ["jj_m", "cosTheta_miss", "missingEnergy_energy_fixed", "missing_p_fixed"]
+        branchList = ["jj_m", "hbb_m", "higgs_recoil_m", "cosTheta_miss", "missingEnergy_energy_fixed", "missing_p_fixed", "hbb_p4[0].M()", "hbb_p4[0].Pt()", "higgs_recoil_p4[0].M()", "higgs_recoil_p4[0].Pt()", "recojet_isB[0]", "recojet_isB[1]" ]
         if doInference:
             branchList.append("mva_score_fixed")
         return branchList
