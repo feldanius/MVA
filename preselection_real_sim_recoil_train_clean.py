@@ -158,16 +158,24 @@ class RDFanalysis:
         df = df.Filter("cosTheta_miss < 0.98")
 
         df = df.Define("reconstructedJets", r'''(
-                {
-                  auto convertPseudoJet = [](const fastjet::PseudoJet& pj) -> edm4hep::ReconstructedParticleData {
-                    // Si existe un constructor adecuado, se puede hacer:
-                    return edm4hep::ReconstructedParticleData(pj.px(), pj.py(), pj.pz(), pj.E());
-                    // Si no, deberás utilizar el método o función auxiliar que realice la conversión.
-                  };
-                  // Asegúrate de que "jets" es el nombre correcto definido previamente en el DataFrame.
-                  return ROOT::VecOps::Map(jets, convertPseudoJet);
-                }
-                )''')
+            {
+              // Función lambda para la conversión
+              auto convertPseudoJet = [](const fastjet::PseudoJet& pj) -> edm4hep::ReconstructedParticleData {
+                edm4hep::ReconstructedParticleData rp;
+                // Se asignan las componentes al miembro 'momentum'
+                rp.momentum.x = pj.px();
+                rp.momentum.y = pj.py();
+                rp.momentum.z = pj.pz();
+                // Se asigna la energía
+                rp.energy = pj.E();
+                // Si tu estructura tiene también un miembro 'mass', podrías asignarlo así:
+                rp.mass = pj.m();
+                return rp;
+              };
+              // 'jets' debe ser una variable definida previamente en el DataFrame, que contenga un RVec<fastjet::PseudoJet>
+              return ROOT::VecOps::Map(jets, convertPseudoJet);
+            }
+            )''')
 
         df = df.Define("hbb", "ReconstructedParticle::resonanceBuilder(125)(reconstructedJets)")
         df = df.Define("hbb_m", "ReconstructedParticle::get_mass(hbb)[0]")
