@@ -163,8 +163,8 @@ class RDFanalysis:
 
  # B-tagging selection
         df = df.Filter("recojet_isB.size() == 2", "Exactamente 2 scores B-tag")
-            .Define("bjets_mask", "recojet_isB[0] > 0.7 && recojet_isB[1] > 0.7")
-            .Filter("Sum(bjets_mask) == 2", "2 b-jets")
+               .Define("bjets_mask", "recojet_isB[0] > 0.7 && recojet_isB[1] > 0.7")
+               .Filter("Sum(bjets_mask) == 2", "2 b-jets")
         
         
 
@@ -177,8 +177,8 @@ class RDFanalysis:
         
         # Reconstrucción del Higgs
         df = df.Define("hbb", "ReconstructedParticle::resonanceBuilder(125)(jets_reco[bjets_mask])")
-            .Define("hbb_p4", "ReconstructedParticle::get_tlv(hbb)")
-            .Define("hbb_m", "hbb_p4.size() > 0 ? (float)hbb_p4[0].M() : -1.0f")
+               .Define("hbb_p4", "ReconstructedParticle::get_tlv(hbb)")
+               .Define("hbb_m", "hbb_p4.size() > 0 ? (float)hbb_p4[0].M() : -1.0f")
 
         #df = df.Define("hbb_pt", "hbb_p4.size() > 0 ? (float)hbb_p4[0].Pt() : -1.0f")
         
