@@ -22,7 +22,7 @@ includePaths = ["functions.h"]
 
 # Output directory
 #outputDir   = f"outputs/FCCee/higgs/mva/preselection_real/"
-outputDir   = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim/preselection_total_with_inference"
+outputDir   = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/preselection"
 
 # Multithreading: -1 means using all cores
 nCPUS       = -1
@@ -146,6 +146,15 @@ class RDFanalysis:
         df = df.Filter("event_njet == 2")    
         df = df.Define("jets_p4", "JetConstituentsUtils::compute_tlv_jets({})".format(jetClusteringHelper.jets))
         df = df.Define("jj_m", "JetConstituentsUtils::InvariantMass(jets_p4[0], jets_p4[1])")
+      ###########################BTagging####################################
+        df = df.Define("scoresum_B", "recojet_isB[0] + recojet_isB[1]")
+        df = df.Filter("scoresum_B > 1.0")
+        df = df.Define("bjets_mask", "scoresum_B > 1.0")
+       # df = df.Define("bjets_mask", "recojet_isB > 0.7") 
+        df = df.Define("bjets", "jets_p4[bjets_mask]")
+        df = df.Filter("bjets.size() == 2", "two b-jets")
+
+        
         df = df.Define("missingEnergy", "FCCAnalyses::missingEnergy(365., ReconstructedParticles)")
         df = df.Define("missingEnergy_energy", "FCCAnalyses::ReconstructedParticle::get_e({missingEnergy[0]})")
         df = df.Define("missingEnergy_energy_fixed", "(missingEnergy_energy.size() > 0) ? missingEnergy_energy[0] : 0.0")
@@ -154,9 +163,7 @@ class RDFanalysis:
         df = df.Define("missing_p_fixed", "(missing_p.size() > 0) ? missing_p[0] : 0.0")
         df = df.Filter("cosTheta_miss < 0.98")
         df = df.Filter("jj_m > 95 && jj_m < 155")
-      ###########################BTagging####################################
-        df = df.Define("scoresum_B", "recojet_isB[0] + recojet_isB[1]")
-        df = df.Filter("scoresum_B > 1.0")
+
       ###########################Recoil####################################
       
         df = df.Define("hbb", "ReconstructedParticle::resonanceBuilder(125)(bjets)")
