@@ -159,9 +159,9 @@ class RDFanalysis:
         df = df.Define("jets", f"{jetClusteringHelper.jets}")  # Jet objects
 
 # B-tagging selection
-        df = df.Define("bjets_mask", "recojet_isB[0] > 0.7 && recojet_isB[1] > 0.7")
-        df = df.Define("bjets", "FCCAnalyses::ReconstructedParticle::sel_indices(bjets_mask)(jets)")
-        df = df.Filter("bjets.size() == 2")
+        df = df.Define("bjets_mask", "ROOT::VecOps::RVec<bool>{recojet_isB[0] > 0.7, recojet_isB[1] > 0.7}")
+        df = df.Define("bjets", "jets[bjets_mask]")
+        df = df.Filter("bjets.size() == 2", "Exactly two b-jets")
 
 # Jet kinematics
         df = df.Define("jets_p4", "JetConstituentsUtils::compute_tlv_jets(jets)")
