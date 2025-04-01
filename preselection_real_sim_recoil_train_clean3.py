@@ -4,7 +4,8 @@ from addons.TMVAHelper.TMVAHelper import TMVAHelperXGB
 
 # list of processes (mandatory)
 processList = {
-    'p8_ee_ZZ_ecm365': {'fraction': 0.3},
+    'wzp6_ee_numunumuH_Hbb_ecm365': {'fraction': 0.3},
+    'wzp6_ee_nuenueH_Hbb_ecm365':  {'fraction': 0.3},
 
 }
 #processList = {
