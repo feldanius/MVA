@@ -65,14 +65,14 @@ test_weights = test_weights.to_numpy()
 params = {
     'objective': 'binary:logistic',
     'eval_metric': 'auc',
-    'eta': 0.1,
+    #'eta': 0.1,
     'max_depth': 5,
-    'subsample': 0.5,
-    'colsample_bytree': 0.5,
+    'subsample': 0.7,#before 0.5 giving more information to the trees
+    'colsample_bytree': 0.7,#before 0.5 giving more information to the trees
     'seed': 42,
     'n_estimators': 350,
     'early_stopping_rounds': 25,
-    'learning_rate': 0.20,
+    'learning_rate': 0.10, #before 0.2 decreasing is better for a finest learning
     'gamma': 3,
     'min_child_weight': 10,
     'max_delta_step': 0,
@@ -84,7 +84,7 @@ bdt = xgb.XGBClassifier(**params)
 bdt.fit(train_data, train_labels, verbose=True, eval_set=eval_set, sample_weight=train_weights)
 
 print("Export model")
-fOutName = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim/train/bdt_model_example.root"
+fOutName = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/train/bdt_model_example.root"
 ROOT.TMVA.Experimental.SaveXGBoost(bdt, "bdt_model", fOutName, num_inputs=len(variables))
 
 # Guardar las variables
