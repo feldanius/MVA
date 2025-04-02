@@ -41,6 +41,9 @@ In order to run the evaluate_bdt.py I have to run the following lines:
 ```bash
 python evaluate_bdt.py -i outputs/FCCee/higgs/mva/bdt_model_example.pkl -o outputs/FCCee/higgs/mva/plots_training
 ```
+```bash
+python evaluate_bdt_mva_real_sim_0_5_recoil_w3.py -i /eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/train_w3/bdt_model_example.pkl -o /eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/evaluate_plots_0_5_w3
+```
 
 In order to run the plot.py I have to run the following lines:
 ```bash
