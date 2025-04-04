@@ -3,7 +3,7 @@ import os
 import ROOT
 
 # Directorios de entrada y salida
-inputDir   = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/preselection_total_with_inference_previous"
+inputDir   = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/preselection_total_with_inference"
 outputDir  = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/final_selection/mva_total"
 
 # Lista de procesos (para filtrar ficheros, por ejemplo)
