@@ -8,12 +8,12 @@ ana_tex        = '(VBF) e^{+}e^{-} #nu^{+}#nu^{-} H #rightarrow b^{+} b^{-}'
 delphesVersion = '3.4.2'
 energy         = 365.0
 collider       = 'FCC-ee'
-inputDir       = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/final_selection_cuts/mva_0_5"
-#inputDir       = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/final_selection_cuts/mva_0_2"
+#inputDir       = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/final_selection_cuts/mva_0_5"
+inputDir       = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/final_selection_cuts/mva_0_2"
 #inputDir       = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/final_selection_cuts/mva_total"
 formats        = ['png','pdf']
-outdir         = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/plots_cut/plots_0_5"
-#outdir         = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/plots_cut/plots_0_2"
+#outdir         = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/plots_cut/plots_0_5"
+outdir         = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/plots_cut/plots_0_2"
 #outdir         = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/plots_cut/plots_no_mva_cut"
 yaxis          = ['lin','log']
 stacksig       = ['nostack']
@@ -56,10 +56,10 @@ hists["missingEnergy_energy_fixed"] = {
     "logy": False,
     "stack": True,
     "rebin": 2,
-    "xmin": 180,
-    "xmax": 280,
+    "xmin": 185,
+    "xmax": 265,
     "ymin": 0,
-    "ymax": 50000,
+    "ymax": 48000,
     "xtitle": "MET (GeV)",
     "ytitle": "Events",
 }
@@ -82,10 +82,10 @@ hists["jj_m"] = {
     "logy": False,
     "stack": True,
     "rebin": 2,
-    "xmin": 0,
-    "xmax": 100,
+    "xmin": 95,
+    "xmax": 150,
     "ymin": 0,
-    "ymax": 50000,
+    "ymax": 90000,
     "xtitle": "m_{jj} (GeV)",
     "ytitle": "Events",
 }
@@ -98,7 +98,7 @@ hists["hbb_m"] = {
     "xmin": 90,
     "xmax": 130,
     "ymin": 0,
-    "ymax": 90000,
+    "ymax": 95000,
     "xtitle": "RecoBuilder_mass (GeV)",
     "ytitle": "Events ",
 }
@@ -109,9 +109,9 @@ hists["hbb_p"] = {
     "stack": True,
     "rebin": 2,
     "xmin": 0,
-    "xmax": 365,
+    "xmax": 100,
     "ymin": 0,
-    "ymax": 20000,
+    "ymax": 50000,
     "xtitle": "RecoBuilder_p (GeV)",
     "ytitle": "Events",
 }
@@ -124,7 +124,7 @@ hists["higgs_recoil_m"] = {
     "xmin": 190,
     "xmax": 280,
     "ymin": 0,
-    "ymax": 45000,
+    "ymax": 38000,
     "xtitle": "higgs_recoil_mass (GeV)",
     "ytitle": "Events",
 }
@@ -138,7 +138,7 @@ hists["mva_score"] = {
     "xmin": 0.2,
     "xmax": 1,
     "ymin": 1,
-    "ymax": 45000,
+    "ymax": 120000,
     "xtitle": "mva_score",
     "ytitle": "Events",
 }
