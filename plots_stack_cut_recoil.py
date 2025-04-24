@@ -82,8 +82,8 @@ hists["jj_m"] = {
     "logy": False,
     "stack": True,
     "rebin": 2,
-    "xmin": 95,
-    "xmax": 150,
+    "xmin": 60,
+    "xmax": 130,
     "ymin": 0,
     "ymax": 90000,
     "xtitle": "m_{jj} (GeV)",
@@ -111,7 +111,7 @@ hists["hbb_p"] = {
     "xmin": 0,
     "xmax": 100,
     "ymin": 0,
-    "ymax": 50000,
+    "ymax": 40000,
     "xtitle": "RecoBuilder_p (GeV)",
     "ytitle": "Events",
 }
@@ -138,7 +138,7 @@ hists["mva_score"] = {
     "xmin": 0.2,
     "xmax": 1,
     "ymin": 1,
-    "ymax": 120000,
+    "ymax": 800000,
     "xtitle": "mva_score",
     "ytitle": "Events",
 }
