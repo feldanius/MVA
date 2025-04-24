@@ -13,7 +13,7 @@ inputDir       = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/final_sel
 #inputDir       = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/final_selection_cuts/mva_total"
 formats        = ['png','pdf']
 #outdir         = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/plots_cut/plots_0_5"
-outdir         = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/plots_cut/plots_0_2"
+outdir         = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/plots_cut/plots_0_2_cut3"
 #outdir         = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/plots_cut/plots_no_mva_cut"
 yaxis          = ['lin','log']
 stacksig       = ['nostack']
@@ -54,7 +54,7 @@ hists = {}
 hists["missingEnergy_energy_fixed"] = {
     "output": "missingEnergy_energy_fixed",
     "logy": False,
-    "stack": True,
+    "stack": False,
     "rebin": 2,
     "xmin": 185,
     "xmax": 265,
@@ -67,7 +67,7 @@ hists["missingEnergy_energy_fixed"] = {
 hists["missing_p_fixed"] = {
     "output": "missing_p_fixed",
     "logy": False,
-    "stack": True,
+    "stack": False,
     "rebin": 2,
     "xmin": 0,
     "xmax": 150,
@@ -80,7 +80,7 @@ hists["missing_p_fixed"] = {
 hists["jj_m"] = {
     "output": "jj_m",
     "logy": False,
-    "stack": True,
+    "stack": False,
     "rebin": 2,
     "xmin": 90,
     "xmax": 130,
@@ -93,7 +93,7 @@ hists["jj_m"] = {
 hists["hbb_m"] = {
     "output": "hbb_m",
     "logy": False,
-    "stack": True,
+    "stack": False,
     "rebin": 2,
     "xmin": 90,
     "xmax": 130,
@@ -106,7 +106,7 @@ hists["hbb_m"] = {
 hists["hbb_p"] = {
     "output": "hbb_p",
     "logy": False,
-    "stack": True,
+    "stack": False,
     "rebin": 2,
     "xmin": 0,
     "xmax": 100,
@@ -119,7 +119,7 @@ hists["hbb_p"] = {
 hists["higgs_recoil_m"] = {
     "output": "higgs_recoil_m",
     "logy": False,
-    "stack": True,
+    "stack": False,
     "rebin": 2,
     "xmin": 190,
     "xmax": 280,
@@ -132,9 +132,9 @@ hists["higgs_recoil_m"] = {
 
 hists["mva_score"] = {
     "output": "mva_score",
-    "logy": True,
-    "stack": True,
-    "rebin": 1,
+    "logy": False,
+    "stack": False,
+    "rebin": 2,
     "xmin": 0.2,
     "xmax": 1,
     "ymin": 1,
@@ -147,8 +147,8 @@ hists["mva_score"] = {
 hists["cosTheta_miss"] = {
     "output": "cosTheta_miss",
     "logy": False,
-    "stack": True,
-    "rebin": 1,
+    "stack": False,
+    "rebin": 2,
     "xmin": 0,
     "xmax": 1.0,
     "ymin": 0,
