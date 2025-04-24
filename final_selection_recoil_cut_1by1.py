@@ -17,7 +17,10 @@ processList = {
 
 # Diccionario de cortes (aquí se definen las selecciones)
 cutList = {
-    "sel_mva":                  "mva_score[0] > 0"
+    "sel_mva":                  "mva_score[0] > 0.2",
+    "sel_hbb_p":                "hbb_p < 90",
+   # "sel_higgs_recoil_m":       "higgs_recoil_m > 200",
+   # "sel_missingEnergy":        "missingEnergy_energy_fixed > 190",
 }
 
 
@@ -57,7 +60,7 @@ def passes_cuts(event):
     # crea un diccionario con todas las variables que uses en los cortes
     vars = {
         "mva_score":                  event.mva_score,                # arreglo
-        #"hbb_p":                      getattr(event, "hbb_p", None),
+        "hbb_p":                      getattr(event, "hbb_p", None),
         #"higgs_recoil_m":             getattr(event, "higgs_recoil_m", None),
         #"missingEnergy_energy_fixed": getattr(event, "missingEnergy_energy_fixed", None),
     }
