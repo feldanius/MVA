@@ -72,7 +72,7 @@ hists["missing_p_fixed"] = {
     "xmin": 0,
     "xmax": 170,
     "ymin": 0,
-    "ymax": 25000,
+    "ymax": 23000,
     "xtitle": "Missing_p (GeV)",
     "ytitle": "Events",
 }
@@ -98,7 +98,7 @@ hists["hbb_m"] = {
     "xmin": 90,
     "xmax": 130,
     "ymin": 0,
-    "ymax": 100000,
+    "ymax": 90000,
     "xtitle": "RecoBuilder_mass (GeV)",
     "ytitle": "Events ",
 }
@@ -111,7 +111,7 @@ hists["hbb_p"] = {
     "xmin": 0,
     "xmax": 95,
     "ymin": 0,
-    "ymax": 33000,
+    "ymax": 30000,
     "xtitle": "RecoBuilder_p (GeV)",
     "ytitle": "Events",
 }
@@ -121,10 +121,10 @@ hists["higgs_recoil_m"] = {
     "logy": False,
     "stack": False,
     "rebin": 2,
-    "xmin": 200,
+    "xmin": 195,
     "xmax": 280,
     "ymin": 0,
-    "ymax": 38000,
+    "ymax": 35000,
     "xtitle": "higgs_recoil_mass (GeV)",
     "ytitle": "Events",
 }
@@ -152,7 +152,7 @@ hists["cosTheta_miss"] = {
     "xmin": 0,
     "xmax": 1.0,
     "ymin": 0,
-    "ymax": 28000,
+    "ymax": 25000,
     "xtitle": "cosTheta_miss",
     "ytitle": "Events",
 }
