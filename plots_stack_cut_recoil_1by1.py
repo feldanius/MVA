@@ -59,7 +59,7 @@ hists["missingEnergy_energy_fixed"] = {
     "xmin": 130,
     "xmax": 265,
     "ymin": 0,
-    "ymax": 105000,
+    "ymax": 195000,
     "xtitle": "MET (GeV)",
     "ytitle": "Events",
 }
@@ -72,7 +72,7 @@ hists["missing_p_fixed"] = {
     "xmin": 0,
     "xmax": 170,
     "ymin": 0,
-    "ymax": 105000,
+    "ymax": 195000,
     "xtitle": "Missing_p (GeV)",
     "ytitle": "Events",
 }
@@ -138,7 +138,7 @@ hists["mva_score"] = {
     "xmin": 0.2,
     "xmax": 1,
     "ymin": 1,
-    "ymax": 900000,
+    "ymax": 2000000,
     "xtitle": "mva_score",
     "ytitle": "Events",
 }
@@ -152,7 +152,7 @@ hists["cosTheta_miss"] = {
     "xmin": 0,
     "xmax": 1.0,
     "ymin": 0,
-    "ymax": 70000,
+    "ymax": 60000,
     "xtitle": "cosTheta_miss",
     "ytitle": "Events",
 }
