@@ -59,7 +59,7 @@ hists["missingEnergy_energy_fixed"] = {
     "xmin": 130,
     "xmax": 265,
     "ymin": 0,
-    "ymax": 40000,
+    "ymax": 45000,
     "xtitle": "MET (GeV)",
     "ytitle": "Events",
 }
@@ -85,7 +85,7 @@ hists["jj_m"] = {
     "xmin": 90,
     "xmax": 155,
     "ymin": 0,
-    "ymax": 70000,
+    "ymax": 82000,
     "xtitle": "m_{jj} (GeV)",
     "ytitle": "Events",
 }
@@ -98,7 +98,7 @@ hists["hbb_m"] = {
     "xmin": 90,
     "xmax": 160,
     "ymin": 0,
-    "ymax": 70000,
+    "ymax": 82000,
     "xtitle": "RecoBuilder_mass (GeV)",
     "ytitle": "Events ",
 }
@@ -124,7 +124,7 @@ hists["higgs_recoil_m"] = {
     "xmin": 195,
     "xmax": 280,
     "ymin": 0,
-    "ymax": 32000,
+    "ymax": 36000,
     "xtitle": "higgs_recoil_mass (GeV)",
     "ytitle": "Events",
 }
