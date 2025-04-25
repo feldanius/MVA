@@ -59,7 +59,7 @@ hists["missingEnergy_energy_fixed"] = {
     "xmin": 130,
     "xmax": 265,
     "ymin": 0,
-    "ymax": 135000,
+    "ymax": 220000,
     "xtitle": "MET (GeV)",
     "ytitle": "Events",
 }
@@ -72,7 +72,7 @@ hists["missing_p_fixed"] = {
     "xmin": 0,
     "xmax": 170,
     "ymin": 0,
-    "ymax": 140000,
+    "ymax": 210000,
     "xtitle": "Missing_p (GeV)",
     "ytitle": "Events",
 }
@@ -83,9 +83,9 @@ hists["jj_m"] = {
     "stack": False,
     "rebin": 2,
     "xmin": 90,
-    "xmax": 140,
+    "xmax": 155,
     "ymin": 0,
-    "ymax": 250000,
+    "ymax": 220000,
     "xtitle": "m_{jj} (GeV)",
     "ytitle": "Events",
 }
@@ -96,9 +96,9 @@ hists["hbb_m"] = {
     "stack": False,
     "rebin": 2,
     "xmin": 90,
-    "xmax": 240,
+    "xmax": 160,
     "ymin": 0,
-    "ymax": 300000,
+    "ymax": 250000,
     "xtitle": "RecoBuilder_mass (GeV)",
     "ytitle": "Events ",
 }
@@ -111,7 +111,7 @@ hists["hbb_p"] = {
     "xmin": 0,
     "xmax": 170,
     "ymin": 0,
-    "ymax": 100000,
+    "ymax": 85000,
     "xtitle": "RecoBuilder_p (GeV)",
     "ytitle": "Events",
 }
@@ -121,10 +121,10 @@ hists["higgs_recoil_m"] = {
     "logy": False,
     "stack": False,
     "rebin": 2,
-    "xmin": 0,
+    "xmin": 70,
     "xmax": 280,
     "ymin": 0,
-    "ymax": 45000,
+    "ymax": 42000,
     "xtitle": "higgs_recoil_mass (GeV)",
     "ytitle": "Events",
 }
