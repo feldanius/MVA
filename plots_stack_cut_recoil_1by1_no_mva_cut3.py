@@ -59,7 +59,7 @@ hists["missingEnergy_energy_fixed"] = {
     "xmin": 185,
     "xmax": 265,
     "ymin": 0,
-    "ymax": 40000,
+    "ymax": 45000,
     "xtitle": "MET (GeV)",
     "ytitle": "Events",
 }
@@ -72,7 +72,7 @@ hists["missing_p_fixed"] = {
     "xmin": 0,
     "xmax": 170,
     "ymin": 0,
-    "ymax": 20000,
+    "ymax": 25000,
     "xtitle": "Missing_p (GeV)",
     "ytitle": "Events",
 }
