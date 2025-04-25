@@ -72,7 +72,7 @@ hists["missing_p_fixed"] = {
     "xmin": 0,
     "xmax": 170,
     "ymin": 0,
-    "ymax": 22000,
+    "ymax": 25000,
     "xtitle": "Missing_p (GeV)",
     "ytitle": "Events",
 }
@@ -85,7 +85,7 @@ hists["jj_m"] = {
     "xmin": 90,
     "xmax": 155,
     "ymin": 0,
-    "ymax": 82000,
+    "ymax": 85000,
     "xtitle": "m_{jj} (GeV)",
     "ytitle": "Events",
 }
@@ -98,7 +98,7 @@ hists["hbb_m"] = {
     "xmin": 90,
     "xmax": 160,
     "ymin": 0,
-    "ymax": 82000,
+    "ymax": 85000,
     "xtitle": "RecoBuilder_mass (GeV)",
     "ytitle": "Events ",
 }
