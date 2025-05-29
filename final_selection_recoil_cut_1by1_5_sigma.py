@@ -19,11 +19,11 @@ outputDir  = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/final_selecti
 
 # Lista de procesos (para filtrar ficheros, por ejemplo)
 processList = {
-    'p8_ee_WW_ecm365': {'fraction': 1},
-    'wzp6_ee_numunumuH_Hbb_ecm365': {'fraction': 1},
-    'wzp6_ee_nuenueH_Hbb_ecm365':  {'fraction': 1},
-    'p8_ee_ZZ_ecm365': {'fraction': 1},
-    'p8_ee_tt_ecm365': {'fraction': 1},
+    'p8_ee_WW_ecm365': {'fraction': 1, 'crossSection': 10.7165 },
+    'wzp6_ee_numunumuH_Hbb_ecm365': {'fraction': 1, 'crossSection': 0.004814},
+    'wzp6_ee_nuenueH_Hbb_ecm365':  {'fraction': 1, 'crossSection': 0.02181},
+    'p8_ee_ZZ_ecm365': {'fraction': 1, 'crossSection': 0.6428},
+    'p8_ee_tt_ecm365': {'fraction': 1, 'crossSection': 0.8},
 }
 
 # Diccionario de cortes (aquí se definen las selecciones)
@@ -159,7 +159,7 @@ def main():
         
         # Aplicar escalado si es necesario
         if doScale:
-            scaling_factor = 144.0  # Sustituir por el cálculo real si es necesario
+            scaling_factor = intLumi*crossSection  # Sustituir por el cálculo real si es necesario
             for hist in histograms.values():
                 hist.Scale(scaling_factor)
         
