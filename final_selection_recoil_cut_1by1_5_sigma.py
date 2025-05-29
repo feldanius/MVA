@@ -159,7 +159,12 @@ def main():
         
         # Aplicar escalado si es necesario
         if doScale:
-            scaling_factor = intLumi*crossSection  # Sustituir por el cálculo real si es necesario
+            crossSection = processList[proc_found]['crossSection']
+            #fraction = processList[proc_found]['fraction']
+            total_events = total_events_per_process[proc_found]
+            scaling_factor = (intLumi * crossSection) / total_events
+            print(f"  Factor de escala para {proc_found}: {scaling_factor:.6e}")
+            #scaling_factor = intLumi*crossSection 
             for hist in histograms.values():
                 hist.Scale(scaling_factor)
         
