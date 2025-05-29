@@ -136,11 +136,10 @@ def process_file(file_path, hists):
     fIn.Close()
 
 def main():
-    # Crear el directorio de salida si no existe
     if not os.path.exists(outputDir):
         os.makedirs(outputDir)
     
-    # Obtener lista de ficheros ROOT en inputDir que coincidan con algún proceso en processList
+    # Obtener lista de archivos ROOT
     files = []
     for f in os.listdir(inputDir):
         if f.endswith(".root") and any(proc in f for proc in processList.keys()):
@@ -149,26 +148,58 @@ def main():
         print("No se encontraron ficheros ROOT en el directorio de entrada.")
         return
 
-    # Procesar cada fichero de forma individual
+    # PASO 1: Precalcular eventos totales por proceso
+    total_events_per_process = {proc: 0 for proc in processList}
     for file_path in files:
+        # Encontrar proceso correspondiente al archivo
+        proc_found = None
+        for proc in processList:
+            if proc in file_path:
+                proc_found = proc
+                break
+        if proc_found is None:
+            continue
+        
+        # Contar eventos en el archivo
+        fIn = ROOT.TFile.Open(file_path)
+        if not fIn or fIn.IsZombie():
+            continue
+        tree = fIn.Get("events")
+        if not tree:
+            fIn.Close()
+            continue
+        total_events_per_process[proc_found] += tree.GetEntries()
+        fIn.Close()
+    
+    # PASO 2: Procesar cada archivo y escalar histogramas
+    for file_path in files:
+        # Encontrar proceso correspondiente
+        proc_found = None
+        for proc in processList:
+            if proc in file_path:
+                proc_found = proc
+                break
+        if proc_found is None:
+            print(f"Archivo {file_path} no coincide con ningún proceso. Saltando.")
+            continue
+        
         print("Procesando:", file_path)
-        # Crear histogramas para este fichero
         histograms = create_histograms()
-        # Procesar el fichero y llenar los histogramas
         process_file(file_path, histograms)
         
-        # Aplicar escalado si es necesario
+        # Calcular factor de escala
         if doScale:
             crossSection = processList[proc_found]['crossSection']
-            #fraction = processList[proc_found]['fraction']
+            fraction = processList[proc_found]['fraction']
             total_events = total_events_per_process[proc_found]
-            scaling_factor = (intLumi * crossSection) / total_events
+            scaling_factor = (intLumi * crossSection * fraction) / total_events
             print(f"  Factor de escala para {proc_found}: {scaling_factor:.6e}")
-            #scaling_factor = intLumi*crossSection 
+            
+            # Aplicar a histogramas
             for hist in histograms.values():
                 hist.Scale(scaling_factor)
         
-        # Guardar los histogramas en un fichero de salida con el mismo nombre que el original
+        # Guardar resultados
         base_name = os.path.basename(file_path)
         output_file_path = os.path.join(outputDir, base_name)
         outFile = ROOT.TFile(output_file_path, "RECREATE")
@@ -176,6 +207,6 @@ def main():
             hist.Write()
         outFile.Close()
         print("Histograma(s) guardado(s) en:", output_file_path)
-
+        
 if __name__ == '__main__':
     main()
