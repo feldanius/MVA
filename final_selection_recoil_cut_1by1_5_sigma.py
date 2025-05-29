@@ -83,7 +83,7 @@ def passes_cuts(event):
     # crea un diccionario con todas las variables que uses en los cortes
     vars = {
         "mva_score":                  event.mva_score,                # arreglo
-        "hbb_p":                      getattr(event, "hbb_p", None),
+        #"hbb_p":                      getattr(event, "hbb_p", None),
         #"higgs_recoil_m":             getattr(event, "higgs_recoil_m", None),
         #"missingEnergy_energy_fixed": getattr(event, "missingEnergy_energy_fixed", None),
     }
@@ -159,7 +159,7 @@ def main():
         
         # Aplicar escalado si es necesario
         if doScale:
-            scaling_factor = 1.0  # Sustituir por el cálculo real si es necesario
+            scaling_factor = 144.0  # Sustituir por el cálculo real si es necesario
             for hist in histograms.values():
                 hist.Scale(scaling_factor)
         
