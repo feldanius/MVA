@@ -3,18 +3,18 @@ import ROOT
 flavor = "mumu" # mumu, ee
 
 intLumi        = 1.0 # assume histograms are scaled in previous step
-outputDir  = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/higgs_combine/mva"
-#outputDir  = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/higgs_combine/mva_cut_1"
-#outputDir  = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/higgs_combine/mva_cut_2"
-#outputDir  = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/higgs_combine/mva_cut_3"
-#outputDir  = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/higgs_combine/mva_0_2"
-#outputDir  = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/higgs_combine/mva_0_2_cut_1"
-#outputDir  = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/higgs_combine/mva_0_2_cut_2"
-#outputDir  = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/higgs_combine/mva_0_2_cut_3"
-#outputDir  = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/higgs_combine/mva_0_5"
-#outputDir  = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/higgs_combine/mva_0_5_cut_1"
-#outputDir  = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/higgs_combine/mva_0_5_cut_2"
-#outputDir  = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/higgs_combine/mva_0_5_cut_3"
+outputDir  = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/higgs_combine/mva_p_miss"
+#outputDir  = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/higgs_combine/mva_cut_1_p_miss"
+#outputDir  = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/higgs_combine/mva_cut_2_p_miss"
+#outputDir  = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/higgs_combine/mva_cut_3_p_miss"
+#outputDir  = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/higgs_combine/mva_0_2_p_miss"
+#outputDir  = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/higgs_combine/mva_0_2_cut_1_p_miss"
+#outputDir  = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/higgs_combine/mva_0_2_cut_2_p_miss"
+#outputDir  = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/higgs_combine/mva_0_2_cut_3_p_miss"
+#outputDir  = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/higgs_combine/mva_0_5_p_miss"
+#outputDir  = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/higgs_combine/mva_0_5_cut_1_p_miss"
+#outputDir  = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/higgs_combine/mva_0_5_cut_2_p_miss"
+#outputDir  = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/higgs_combine/mva_0_5_cut_3_p_miss"
 mc_stats       = True
 rebin          = 10
 
