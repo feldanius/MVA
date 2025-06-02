@@ -44,7 +44,7 @@ systs['lumi'] = {
 systs['bkg_norm_ZH'] = {
     'type': 'lnN',
     'value': 1.02, # Ejemplo
-    'procs': ['ZH_bkg'], 
+    'procs': ['ZH'], 
 }
 
 systs['bkg_norm_ZZ'] = {
