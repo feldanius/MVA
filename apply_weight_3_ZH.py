@@ -19,7 +19,7 @@ processes_to_scale = [
 ]
 
 # Identificadores de tus archivos para construir el nombre completo
-selection_tag = "sel3_histo"
+selection_tag = "sel3"
 output_tag = "_ZH" # Etiqueta para añadir al nombre del archivo de salida
 hist_name = "higgs_recoil_m_final"
 
