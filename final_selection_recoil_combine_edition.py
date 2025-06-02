@@ -48,5 +48,5 @@ histoList = {
     "hbb_p":{"cols": ["hbb_p"], "title": "recoil_m (GeV)", "bins": [(250,0,120)]},
     "missingEnergy_energy_fixed":{"cols": ["missingEnergy_energy_fixed"], "title": "MET (GeV)", "bins": [(250,180,300)]},
     "higgs_recoil_m":{"cols": ["higgs_recoil_m"], "title": "Recoil (GeV)", "bins": [(250,0,250)]},
-    "higgs_recoil_m_final":{"cols": ["zll_recoil_m"], "title": "Recoil (GeV)", "bins": [(200,120,250)]},
+    "higgs_recoil_m_final":{"cols": ["higgs_recoil_m"], "title": "Recoil (GeV)", "bins": [(200,120,250)]},
 }
