@@ -92,7 +92,7 @@ combine -M FitDiagnostics /eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/h
 ```
 # Nuisances
 ```bash
-python -b HiggsAnalysis/CombinedLimit/test/diffNuisances.py fitDiagnostics.root -g nuisances.pdf
+python -b HiggsAnalysis/CombinedLimit/test/diffNuisances.py fitDiagnosticsTest.root -g nuisances.pdf
 ```
 ```bash
 ls -lh nuisances.pdf
