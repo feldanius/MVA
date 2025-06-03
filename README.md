@@ -71,6 +71,9 @@ cmssw-el7
 ```bash
 cd CMSSW_10_2_13/src
 ```
+```bash
+cmsenv
+```
 # SIGNIFICANCE
 ```bash
 combine -M Significance /eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/higgs_combine/combine_recoil/mva_0_ZH_w3/datacard.txt -t -1 --expectSignal=1
