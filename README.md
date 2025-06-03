@@ -62,7 +62,7 @@ Example SCP  LXPLUS ---> CERNBOX
 scp fdmartin@lxplus.cern.ch:/afs/cern.ch/user/f/fdmartin/FCCAnalyses/examples/FCCee/higgs/mva/outputs/FCCee/higgs/mva/bdt_model_example.root /eos/user/f/fdmartin/FCC365_MVA_BDT_preselection/
 ```
 
-## COMBINE
+## COMBINE  (I can't mix fccanalyses enviorement, if I used fisrt FCC I should to close the terminal session and start a new one with the following lines and viceverse)
 
 
 ```bash
