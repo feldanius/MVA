@@ -8,13 +8,11 @@ ana_tex        = '(VBF) e^{+}e^{-} #nu^{+}#nu^{-} H #rightarrow b^{+} b^{-}'
 delphesVersion = '3.4.2'
 energy         = 365.0
 collider       = 'FCC-ee'
-#inputDir       = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/final_selection_cuts/mva_0_5_cut3"
 inputDir       = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/final_selection_cuts/MVA_0_2"
-#inputDir       = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/final_selection_cuts/mva_total"
+#inputDir       = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/final_selection_cuts/MVA_0_5"
 formats        = ['png','pdf']
-#outdir         = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/plots_cut/plots_0_5"
-outdir         = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/plots_cut/plots_0_2_cut2"
-#outdir         = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/plots_cut/plots_no_mva_cut"
+outdir         = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/higgs_combine/plots_final_selection/MVA_0_2"
+#outdir         = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/higgs_combine/plots_final_selection/MVA_0_5"
 yaxis          = ['lin','log']
 stacksig       = ['nostack']
 plotStatUnc    = True
@@ -22,12 +20,10 @@ plotStatUnc    = True
 variables = ['mva_score', 'hbb_p', 'higgs_recoil_m', 'missingEnergy_energy_fixed', 'higgs_recoil_m_final']
 rebin = [1, 1] # uniform rebin per variable (optional)
 
-###Dictonnary with the analysis name as a key, and the list of selections to be plotted for this analysis. The name of the selections should be the same than in the final selection
-#selections = {}
-#selections['VBF']   = ["mva_score"]
+
 selections = {}
 selections['VBF']   = ["sel0"]
-selections['VBF']   = ["sel0", "sel1", "sel2", "sel3" ]
+#selections['VBF']   = ["sel0", "sel1", "sel2", "sel3" ]
 
 extralabel = {}
 extralabel['sel0'] = "MVA > 0.2"
