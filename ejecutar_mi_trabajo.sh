@@ -27,7 +27,7 @@ echo "Entorno configurado correctamente."
 # --- Ejecución del Análisis ---
 # Paso 3: Ir a la carpeta EXACTA donde está tu script de análisis.
 # ¡REEMPLAZA con la ruta absoluta a la carpeta de tu script!
-/afs/cern.ch/user/f/fdmartin/FCCAnalyses/examples/FCCee/higgs/mva
+cd /afs/cern.ch/user/f/fdmartin/FCCAnalyses/examples/FCCee/higgs/mva
 
 echo "Directorio de trabajo cambiado a: $(pwd)"
 echo "Ejecutando el análisis con el comando 'fccanalysis run'..."
