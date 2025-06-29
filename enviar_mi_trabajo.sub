@@ -1,0 +1,20 @@
+# Archivo de envío para HTCondor para el análisis de FCC
+
+# El programa que el sistema de batch debe ejecutar
+executable = ejecutar_mi_trabajo.sh
+
+# Archivo para la salida estándar (lo que tu script imprima)
+output = resultado_$(ClusterId).$(ProcId).out
+
+# Archivo para los errores que puedan ocurrir
+error = errores_$(ClusterId).$(ProcId).err
+
+# Archivo de registro de HTCondor (obligatorio)
+log = registro_$(ClusterId).log
+
+# Tiempo máximo de ejecución solicitado.
+# Tu trabajo dura ~42 horas, "testmatch" le da 3 días (72h) de margen.
++JobFlavour = "testmatch"
+
+# Poner el trabajo en la cola
+queue
