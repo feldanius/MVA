@@ -19,7 +19,7 @@ yaxis          = ['lin','log']
 stacksig       = ['nostack']
 plotStatUnc    = True
 
-variables = ['mva_score', 'hbb_p', 'higgs_recoil', 'missingEnergy_energy_fixed', 'higgs_recoil_final']
+variables = ['mva_score', 'recobuilder', 'higgs_recoil', 'MET', 'higgs_recoil_final']
 rebin = [1, 1] # uniform rebin per variable (optional)
 
 
@@ -28,7 +28,7 @@ selections['VBF']   = ["sel0"]
 #selections['VBF']   = ["sel0", "sel1", "sel2", "sel3" ]
 
 extralabel = {}
-extralabel['sel0'] = "MVA > 0.2"
+extralabel['sel0'] = "MVA >= 0"
 #extralabel['sel1'] = "hbb_p < 90 GeV"
 #extralabel['sel0'] = "higgs_recoil_m > 120 GeV"
 #extralabel['sel1'] = "MET > 190 GeV"
