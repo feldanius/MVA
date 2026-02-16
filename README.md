@@ -110,39 +110,22 @@ matplotlib.use('Agg')
 
 import matplotlib.pyplot as plt
 import numpy as np
-import os # <--- IMPORTANTE: Módulo para operaciones del sistema operativo, como rutas
+import os
 
-# --- Configuración ---
-input_file = 'nuisances_data_mva_0_5_cut_3.txt' # Asume que está en el mismo directorio que el script
-
-# Directorio donde quieres guardar el gráfico
+input_file = 'nuisances_data_mva_0_5_cut_3.txt'
 output_directory = "/eos/user/f/fdmartin/FCC365_MVA_train_realsim_recoil/higgs_combine/combine_recoil/mva_0_5_cut_3_ZH_w3"
-# Nombre del archivo PDF
 output_filename = 'mi_grafico_de_impacto.png'
 
-# Construir la ruta completa para el archivo de salida
 output_file = os.path.join(output_directory, output_filename)
-
-# --- Asegurarse de que el directorio de salida exista ---
-# Si el directorio no existe, lo creamos.
 try:
     if not os.path.exists(output_directory):
         os.makedirs(output_directory)
         print u"Directorio de salida creado: {}".format(output_directory)
 except OSError as e:
     print u"Error al crear el directorio de salida '{}': {}. Por favor, verifica la ruta y los permisos.".format(output_directory, e)
-    # Podrías decidir salir del script si el directorio no se puede crear
-    # import sys
-    # sys.exit(1)
-
-
-# --- Listas para almacenar los datos ---
 param_names = []
 postfit_values = []
 postfit_errors = []
-
-# --- Leer y procesar el archivo de datos ---
-# (El resto del código para leer y procesar el archivo de datos permanece igual)
 with open(input_file, 'r') as f:
     for line in f:
         if not line.strip():
@@ -163,8 +146,6 @@ param_names.reverse()
 postfit_values.reverse()
 postfit_errors.reverse()
 
-# --- Crear el Gráfico ---
-# (El código para crear y formatear el gráfico permanece igual)
 fig, ax = plt.subplots(figsize=(10, 8))
 y_pos = np.arange(len(param_names))
 ax.errorbar(postfit_values, y_pos, xerr=postfit_errors, fmt='o', color='black', ecolor='black', elinewidth=1, capsize=3)
@@ -181,8 +162,6 @@ ax.set_xlim(-15, 15)
 ax.grid(axis='x', linestyle='--', alpha=0.6)
 plt.tight_layout()
 
-# --- Guardar el Gráfico ---
-# plt.savefig() ahora usará la ruta completa
 try:
     plt.savefig(output_file)
     print u"¡Gráfico guardado exitosamente como '{}'!".format(output_file)
